@@ -1,5 +1,7 @@
 package org.example.quizzen.preguntas;
 
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class PreguntaOpcionMultipleFX {
 
@@ -61,28 +64,54 @@ public class PreguntaOpcionMultipleFX {
         btonSiguiente.setStyle(estiloBoton);
 
         //efecto de agrandar cuando el cursor esta encima
-        btonAtras.setOnMouseEntered(e -> {
-            btonAtras.setScaleX(1.2);
-            btonAtras.setScaleY(1.2);
-        });
-
-        btonAtras.setOnMouseExited(e -> {
-            btonAtras.setScaleX(1.0);
-            btonAtras.setScaleY(1.0);
-        });
-
-        btonSiguiente.setOnMouseEntered(e ->{
-            btonSiguiente.setScaleX(1.2);
-            btonSiguiente.setScaleY(1.2);
-        });
-
-        btonSiguiente.setOnMouseExited(e ->{
-            btonSiguiente.setScaleX(1.0);
-            btonSiguiente.setScaleY(1.0);
-        });
+//        btonAtras.setOnMouseEntered(e -> {
+//            btonAtras.setScaleX(1.2);
+//            btonAtras.setScaleY(1.2);
+//        });
+//
+//        btonAtras.setOnMouseExited(e -> {
+//            btonAtras.setScaleX(1.0);
+//            btonAtras.setScaleY(1.0);
+//        });
+//
+//        btonSiguiente.setOnMouseEntered(e ->{
+//            btonSiguiente.setScaleX(1.2);
+//            btonSiguiente.setScaleY(1.2);
+//        });
+//
+//        btonSiguiente.setOnMouseExited(e ->{
+//            btonSiguiente.setScaleX(1.0);
+//            btonSiguiente.setScaleY(1.0);
+//        });
         //animación de tipo gelatina
 
+        ScaleTransition transicionBotonAtrasGrande = new ScaleTransition(Duration.millis(200),btonAtras);
+        transicionBotonAtrasGrande.setToX(1.25);
+        transicionBotonAtrasGrande.setToY(1.25);
+        transicionBotonAtrasGrande.setInterpolator(Interpolator.EASE_OUT);
 
+        ScaleTransition transicionBotonAtrasNormal = new ScaleTransition(Duration.millis(200), btonAtras);
+        transicionBotonAtrasNormal.setToX(1.0);
+        transicionBotonAtrasNormal.setToY(1.0);
+        transicionBotonAtrasNormal.setInterpolator(Interpolator.EASE_BOTH);
+
+        btonAtras.setOnMouseEntered(e ->
+                transicionBotonAtrasGrande.playFromStart());
+        btonAtras.setOnMouseExited(e ->
+                transicionBotonAtrasNormal.playFromStart());
+
+        ScaleTransition transicionBotonSiguienteGrande = new ScaleTransition(Duration.millis(200), btonSiguiente);
+        transicionBotonSiguienteGrande.setToX(1.25);
+        transicionBotonSiguienteGrande.setToY(1.25);
+        transicionBotonSiguienteGrande.setInterpolator(Interpolator.EASE_OUT);
+
+        ScaleTransition transicionBotonSiguienteNormal = new ScaleTransition(Duration.millis(200), btonSiguiente);
+        transicionBotonSiguienteNormal.setToX(1.0);
+        transicionBotonSiguienteNormal.setToY(1.0);
+        transicionBotonSiguienteNormal.setInterpolator(Interpolator.EASE_BOTH);
+
+        btonSiguiente.setOnMouseEntered(e -> transicionBotonSiguienteGrande.playFromStart());
+        btonSiguiente.setOnMouseExited(e -> transicionBotonSiguienteNormal.playFromStart());
 
 
 

@@ -61,11 +61,9 @@ public class PreguntaOpcionMultipleFX {
         btonSiguiente.setStyle(estiloBoton);
 
         //efecto de agrandar cuando el cursor esta encima
-        //animación de tipo gelatina
-
         btonAtras.setOnMouseEntered(e -> {
-            btonAtras.setScaleX(1.5);
-            btonAtras.setScaleY(1.5);
+            btonAtras.setScaleX(1.2);
+            btonAtras.setScaleY(1.2);
         });
 
         btonAtras.setOnMouseExited(e -> {
@@ -74,14 +72,18 @@ public class PreguntaOpcionMultipleFX {
         });
 
         btonSiguiente.setOnMouseEntered(e ->{
-            btonSiguiente.setScaleX(1.5);
-            btonSiguiente.setScaleY(1.5);
+            btonSiguiente.setScaleX(1.2);
+            btonSiguiente.setScaleY(1.2);
         });
 
         btonSiguiente.setOnMouseExited(e ->{
             btonSiguiente.setScaleX(1.0);
             btonSiguiente.setScaleY(1.0);
         });
+        //animación de tipo gelatina
+
+
+
 
 
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));

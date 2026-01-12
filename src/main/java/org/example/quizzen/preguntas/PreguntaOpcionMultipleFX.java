@@ -44,6 +44,46 @@ public class PreguntaOpcionMultipleFX {
         Button btonAtras = new Button("Atras");
         Button btonSiguiente = new Button("Siguiente");
 
+        //tamaño fijo para evitar reorganicaciones de la colocación:
+        btonAtras.setPrefWidth(120);
+        btonSiguiente.setPrefWidth(120);
+
+        //Estilo css colores morado con degradado
+
+        String estiloBoton =
+                "-fx-background-color: linear-gradient(to bottom right, #d8b4fe, #7c3aed);" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 10 20 10 20;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;";
+
+        btonAtras.setStyle(estiloBoton);
+        btonSiguiente.setStyle(estiloBoton);
+
+        //efecto de agrandar cuando el cursor esta encima
+        //animación de tipo gelatina
+
+        btonAtras.setOnMouseEntered(e -> {
+            btonAtras.setScaleX(1.5);
+            btonAtras.setScaleY(1.5);
+        });
+
+        btonAtras.setOnMouseExited(e -> {
+            btonAtras.setScaleX(1.0);
+            btonAtras.setScaleY(1.0);
+        });
+
+        btonSiguiente.setOnMouseEntered(e ->{
+            btonSiguiente.setScaleX(1.5);
+            btonSiguiente.setScaleY(1.5);
+        });
+
+        btonSiguiente.setOnMouseExited(e ->{
+            btonSiguiente.setScaleX(1.0);
+            btonSiguiente.setScaleY(1.0);
+        });
+
+
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         btonSiguiente.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 

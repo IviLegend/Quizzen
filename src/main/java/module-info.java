@@ -6,6 +6,7 @@ module org.example.quizzen {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
+    requires javafx.graphics;
 
     opens org.example.quizzen to javafx.fxml;
     exports org.example.quizzen;

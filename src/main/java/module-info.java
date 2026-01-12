@@ -9,4 +9,8 @@ module org.example.quizzen {
 
     opens org.example.quizzen to javafx.fxml;
     exports org.example.quizzen;
+    exports org.example.quizzen.preguntas;
+    opens org.example.quizzen.preguntas to javafx.fxml;
+    exports org.example.quizzen.test;
+    opens org.example.quizzen.test to javafx.fxml;
 }

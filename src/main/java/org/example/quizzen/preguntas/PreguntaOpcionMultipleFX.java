@@ -105,34 +105,9 @@ public class PreguntaOpcionMultipleFX {
 //        });
         //animación de tipo gelatina
 
-        ScaleTransition transicionBotonAtrasGrande = new ScaleTransition(Duration.millis(200),btonAtras);
-        transicionBotonAtrasGrande.setToX(1.25);
-        transicionBotonAtrasGrande.setToY(1.25);
-        transicionBotonAtrasGrande.setInterpolator(Interpolator.EASE_OUT);
+        cambiarTamanyoBotón(btonAtras,1.25,1.0);
 
-        ScaleTransition transicionBotonAtrasNormal = new ScaleTransition(Duration.millis(200), btonAtras);
-        transicionBotonAtrasNormal.setToX(1.0);
-        transicionBotonAtrasNormal.setToY(1.0);
-        transicionBotonAtrasNormal.setInterpolator(Interpolator.EASE_BOTH);
-
-        btonAtras.setOnMouseEntered(e ->
-                transicionBotonAtrasGrande.playFromStart());
-        btonAtras.setOnMouseExited(e ->
-                transicionBotonAtrasNormal.playFromStart());
-
-        ScaleTransition transicionBotonSiguienteGrande = new ScaleTransition(Duration.millis(200), btonSiguiente);
-        transicionBotonSiguienteGrande.setToX(1.25);
-        transicionBotonSiguienteGrande.setToY(1.25);
-        transicionBotonSiguienteGrande.setInterpolator(Interpolator.EASE_OUT);
-
-        ScaleTransition transicionBotonSiguienteNormal = new ScaleTransition(Duration.millis(200), btonSiguiente);
-        transicionBotonSiguienteNormal.setToX(1.0);
-        transicionBotonSiguienteNormal.setToY(1.0);
-        transicionBotonSiguienteNormal.setInterpolator(Interpolator.EASE_BOTH);
-
-        btonSiguiente.setOnMouseEntered(e -> transicionBotonSiguienteGrande.playFromStart());
-        btonSiguiente.setOnMouseExited(e -> transicionBotonSiguienteNormal.playFromStart());
-
+        cambiarTamanyoBotón(btonSiguiente,1.25,1.0);
 
 
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
@@ -153,5 +128,34 @@ public class PreguntaOpcionMultipleFX {
         stage.setTitle("PreguntaOpcionMultiple");
         stage.show();
 
+    }
+
+    /**
+     * Este metodo aplica un aumento al botón cuando el raton se posiciona encima del botón.
+     * A su vez, cuando el cursor deja estar encima del botón, este vuelve al tamaño normal
+     * Cuando el cursor se posiciona encima de cualquier boton, o deja de estar encima, el
+     * boton se agrande y vuelve a su forma nomrla de forma suave
+     * <p>Este metodo esta compuesto por dos animaciones de tipp {@link ScaleTransition}
+     * ya que este objeto se encarga de aumentar y disminuir los tamaños</p>
+     * @ autor Alvaro Segura
+     * @param unBotonCualquiera se le pasa un objeto de tipo Button al que se le aplica las
+     *                          animaciones de escala
+     */
+
+    private static void cambiarTamanyoBotón(Button unBotonCualquiera, double tamanyoGrande, double tamanyoNormal) {
+        ScaleTransition hacerBotonGrande = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
+        hacerBotonGrande.setToX(tamanyoGrande);
+        hacerBotonGrande.setToY(tamanyoGrande);
+        hacerBotonGrande.setInterpolator(Interpolator.EASE_OUT);
+
+        ScaleTransition botonTamanyoNormal = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
+        botonTamanyoNormal.setToX(tamanyoNormal);
+        botonTamanyoNormal.setToY(tamanyoNormal);
+        botonTamanyoNormal.setInterpolator(Interpolator.EASE_BOTH);
+
+        unBotonCualquiera.setOnMouseEntered(e ->
+                hacerBotonGrande.playFromStart());
+        unBotonCualquiera.setOnMouseExited(e ->
+                botonTamanyoNormal.playFromStart());
     }
 }

@@ -45,25 +45,85 @@ public class PreguntaOpcionMultipleFX {
                 "-fx-background-radius: 10px;"
         );
 
+        // caja principal de las opciones
+
+        VBox contenedorOpciones = new VBox(20);
+        contenedorOpciones.setAlignment(Pos.CENTER);
+
+        //Estilo del cuadro naraja
+        contenedorOpciones.setStyle( "-fx-background-color: #ffcc99;" +
+                "-fx-border-color: #cc6600;" +
+                "-fx-border-width: 4px;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;"
+        );
+        contenedorOpciones.setPadding(new Insets(20));
 
         // Opciones:
-        ToggleGroup grupoOpciones = new ToggleGroup(); // solo se seleciona una opción
-        VBox contenidoOpcion = new VBox(10); //contenedir en vertical
-        contenidoOpcion.setAlignment(Pos.CENTER); // centramos las opciones
 
-        char letra = 'a';
+        VBox columnaOpciones = new VBox(15); //contenedir en vertical
+        columnaOpciones.setAlignment(Pos.CENTER_LEFT); // centramos las opciones
+
+//        ToggleGroup grupoOpciones = new ToggleGroup(); // solo se seleciona una opción
+//        VBox contenidoOpcion = new VBox(10); //contenedir en vertical
+//        contenidoOpcion.setAlignment(Pos.CENTER); // centramos las opciones
+
+        char letra = 'A';
         for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){
+
+            HBox cajaOpcion = new HBox(10);
+            cajaOpcion.setAlignment(Pos.CENTER_LEFT);
+            cajaOpcion.setPadding(new Insets(10));
+
+            cajaOpcion.setStyle(
+                    "-fx-background-color: #ffffff;" +
+                    "-fx-border-color: #999999;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;" );
+
+            Label textoOpcion = new Label(letra + ") " + opcion.getSentencia());
+            textoOpcion.setFont(Font.font("Arial", 16));
+            cajaOpcion.getChildren().add(textoOpcion);
+            columnaOpciones.getChildren().add(cajaOpcion);
 
             RadioButton radioButton = new RadioButton(letra+") "+opcion.getSentencia());
 
             // con radioButton solo puede haber una selección correcta. sin el setToggleGroup se pueden selecionar varias opciones.
-            radioButton.setToggleGroup(grupoOpciones);
-            radioButton.setFont(Font.font("Arial",16));
-            contenidoOpcion.getChildren().add(radioButton); //los resultados aparecen uno debajo del otro.
+//            radioButton.setToggleGroup(grupoOpciones);
+//            radioButton.setFont(Font.font("Arial",16));
+//            contenidoOpcion.getChildren().add(radioButton); //los resultados aparecen uno debajo del otro.
+
             letra++; // a) despues b) despues c) ...
         }
+        // botones A, B, C y D debajo del cuadro de las opciones
 
-        // botones
+        HBox filaBotonesABCD = new HBox(20);
+        filaBotonesABCD.setAlignment(Pos.CENTER);
+
+        String estiloBotonABCD = "-fx-background-color: #ffff99;" +
+                "-fx-border-color: #cccc00;" +
+                "-fx-border-width: 3px;" +
+                "-fx-background-radius: 10px;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-font-weight: bold;" +
+                "-fx-font-size: 16px;";
+
+        for (char caracter = 'A'; caracter <= 'D'; caracter++){
+            Button boton = new Button(String.valueOf(caracter));
+            boton.setPrefWidth(60);
+            boton.setStyle(estiloBotonABCD);
+            cambiarTamanyoBoton(boton, 1.25, 1.0);
+            filaBotonesABCD.getChildren().add(boton);
+
+        }
+
+        // Añadimos opciones + botones ABCD al cuadro naranja
+        contenedorOpciones.getChildren().addAll(columnaOpciones, filaBotonesABCD);
+
+
+
+        // botones para ir hacia adelante o hacia atrás
         Button btonAtras = new Button("Atras");
         Button btonSiguiente = new Button("Siguiente");
 
@@ -105,9 +165,9 @@ public class PreguntaOpcionMultipleFX {
 //        });
         //animación de tipo gelatina
 
-        cambiarTamanyoBotón(btonAtras,1.25,1.0);
+        cambiarTamanyoBoton(btonAtras,1.25,1.0);
 
-        cambiarTamanyoBotón(btonSiguiente,1.25,1.0);
+        cambiarTamanyoBoton(btonSiguiente,1.25,1.0);
 
 
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
@@ -118,7 +178,7 @@ public class PreguntaOpcionMultipleFX {
         contenedorBotones.setAlignment(Pos.CENTER); // centramos los botones
 
         //Layout principal
-        VBox root = new VBox(20, /*titulo*/cajaTitulo, contenidoOpcion, contenedorBotones);
+        VBox root = new VBox(20, /*titulo*/cajaTitulo, contenedorOpciones, contenedorBotones);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER); //centrar el bloque
         //root.getChildren().add(cajaTitulo); //añadir la propia caja
@@ -142,7 +202,7 @@ public class PreguntaOpcionMultipleFX {
      *                          animaciones de escala
      */
 
-    private static void cambiarTamanyoBotón(Button unBotonCualquiera, double tamanyoGrande, double tamanyoNormal) {
+    private static void cambiarTamanyoBoton(Button unBotonCualquiera, double tamanyoGrande, double tamanyoNormal) {
         ScaleTransition hacerBotonGrande = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
         hacerBotonGrande.setToX(tamanyoGrande);
         hacerBotonGrande.setToY(tamanyoGrande);

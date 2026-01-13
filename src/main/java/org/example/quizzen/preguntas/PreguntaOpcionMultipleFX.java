@@ -32,13 +32,15 @@ public class PreguntaOpcionMultipleFX {
         VBox cajaTitulo = new VBox(titulo);
         cajaTitulo.setAlignment(Pos.CENTER);
         cajaTitulo.setPadding(new Insets(20));
-        cajaTitulo.setMaxWidth(Double.MAX_VALUE); //la caja ocupa todo el ancho
+
+        //cajaTitulo.setMaxWidth(Double.MAX_VALUE); //la caja ocupa todo el ancho
+        VBox.setMargin(cajaTitulo, new Insets(50));
 
         //estilo de la caja
         cajaTitulo.setStyle(
                 "-fx-background-color: #ccffcc;"+ // verde claro
                 "-fx-border-color: #2e8b57;" + // borde verde oscuro
-                "-fx-border-width: 3px;"+
+                "-fx-border-width: 5px;"+
                 "-fx-border-radius: 10px;"+
                 "-fx-background-radius: 10px;"
         );

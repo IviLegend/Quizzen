@@ -26,6 +26,16 @@ public class PreguntaOpcionMultipleFX {
         titulo.setAlignment(Pos.CENTER); // Centra dentro del Label
         titulo.setTextAlignment(TextAlignment.CENTER); //centrar el texto
 
+        //caja para el titulo
+        VBox cajaTitulo = new VBox(titulo);
+        cajaTitulo.setAlignment(Pos.CENTER);
+        cajaTitulo.setPadding(new Insets(20));
+
+
+
+
+
+
         // Opciones:
         ToggleGroup grupoOpciones = new ToggleGroup(); // solo se seleciona una opción
         VBox contenidoOpcion = new VBox(10); //contenedir en vertical

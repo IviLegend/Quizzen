@@ -6,8 +6,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
@@ -34,24 +38,26 @@ public class PreguntaOpcionMultipleFX {
         cajaTitulo.setPadding(new Insets(20));
 
         //cajaTitulo.setMaxWidth(Double.MAX_VALUE); //la caja ocupa todo el ancho
-        VBox.setMargin(cajaTitulo, new Insets(50));
+        VBox.setMargin(cajaTitulo, new Insets(10));
 
         //estilo de la caja
         cajaTitulo.setStyle(
                 "-fx-background-color: #ccffcc;"+ // verde claro
                 "-fx-border-color: #2e8b57;" + // borde verde oscuro
                 "-fx-border-width: 5px;"+
-                "-fx-border-radius: 10px;"+
-                "-fx-background-radius: 10px;"
+                "-fx-border-radius: 50px;"+
+                "-fx-background-radius: 50px;"
         );
 
         // caja principal de las opciones
 
         VBox contenedorOpciones = new VBox(20);
         contenedorOpciones.setAlignment(Pos.CENTER);
+        VBox.setMargin(contenedorOpciones, new Insets(5, 200, 5, 200)); //Separarlo de los margenes
 
         //Estilo del cuadro naraja
-        contenedorOpciones.setStyle( "-fx-background-color: #ffcc99;" +
+        contenedorOpciones.setStyle(
+                "-fx-background-color: #ffcc99;" +
                 "-fx-border-color: #cc6600;" +
                 "-fx-border-width: 4px;" +
                 "-fx-border-radius: 10px;" +
@@ -68,26 +74,71 @@ public class PreguntaOpcionMultipleFX {
 //        VBox contenidoOpcion = new VBox(10); //contenedir en vertical
 //        contenidoOpcion.setAlignment(Pos.CENTER); // centramos las opciones
 
+
+        // las opciones deben estar escritas en dos cajas, la primera con la susodicha opcion y la segunda con la información
         char letra = 'A';
         for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){
 
-            HBox cajaOpcion = new HBox(10);
-            cajaOpcion.setAlignment(Pos.CENTER_LEFT);
-            cajaOpcion.setPadding(new Insets(10));
+            //Fila completa de la opción
+            HBox filaOpcion = new HBox(10);
+            filaOpcion.setAlignment(Pos.CENTER_LEFT);
+            //filaOpcion.setPadding(new Insets(10));
 
-            cajaOpcion.setStyle(
+            // caja pequeña para A, B, C y D
+            Label labelLetra = new Label(letra + ")");
+            labelLetra.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            labelLetra.setAlignment(Pos.CENTER);
+            labelLetra.setMinWidth(40);
+
+            StackPane cajaLetra = new StackPane(labelLetra);
+            cajaLetra.setPadding(new Insets(8));
+            cajaLetra.setStyle( "-fx-background-color: #ffffff;" +
+                    "-fx-border-color: #999999;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;"
+            );
+
+            // caja grande para el texto de las opciones
+            Label textoOpcion = new Label(opcion.getSentencia());
+            textoOpcion.setFont(Font.font("Arial", 16));
+            textoOpcion.setWrapText(true);
+
+            textoOpcion.setAlignment(Pos.CENTER_LEFT);
+            StackPane.setAlignment(textoOpcion, Pos.CENTER_LEFT);
+
+            StackPane cajaTexto = new StackPane(textoOpcion);
+            cajaTexto.setPadding(new Insets(8));
+            cajaTexto.setStyle( "-fx-background-color: #ffffff;" +
+                    "-fx-border-color: #999999;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;"
+            );
+
+            cajaTexto.setMaxWidth(Double.MAX_VALUE);
+
+            HBox.setHgrow(cajaTexto, Priority.ALWAYS);
+
+            // Añadimos las dos cajas a la misma línea
+            filaOpcion.getChildren().addAll(cajaLetra, cajaTexto);
+
+            // Añadimos la fila al cuadro naranja
+            contenedorOpciones.getChildren().add(filaOpcion);
+
+            filaOpcion.setStyle(
                     "-fx-background-color: #ffffff;" +
                     "-fx-border-color: #999999;" +
                     "-fx-border-width: 2px;" +
                     "-fx-border-radius: 8px;" +
                     "-fx-background-radius: 8px;" );
 
-            Label textoOpcion = new Label(letra + ") " + opcion.getSentencia());
-            textoOpcion.setFont(Font.font("Arial", 16));
-            cajaOpcion.getChildren().add(textoOpcion);
-            columnaOpciones.getChildren().add(cajaOpcion);
-
-            RadioButton radioButton = new RadioButton(letra+") "+opcion.getSentencia());
+//            Label textoOpcion = new Label(letra + ") " + opcion.getSentencia());
+//            textoOpcion.setFont(Font.font("Arial", 16));
+//            filaOpcion.getChildren().add(textoOpcion);
+//            columnaOpciones.getChildren().add(filaOpcion);
+//
+//            RadioButton radioButton = new RadioButton(letra+") "+opcion.getSentencia());
 
             // con radioButton solo puede haber una selección correcta. sin el setToggleGroup se pueden selecionar varias opciones.
 //            radioButton.setToggleGroup(grupoOpciones);
@@ -101,25 +152,71 @@ public class PreguntaOpcionMultipleFX {
         HBox filaBotonesABCD = new HBox(20);
         filaBotonesABCD.setAlignment(Pos.CENTER);
 
-        String estiloBotonABCD = "-fx-background-color: #ffff99;" +
-                "-fx-border-color: #cccc00;" +
-                "-fx-border-width: 3px;" +
-                "-fx-background-radius: 10px;" +
-                "-fx-border-radius: 10px;" +
-                "-fx-font-weight: bold;" +
-                "-fx-font-size: 16px;";
+        //Efecto de brillo:
+        DropShadow glow = new DropShadow();
+
+        glow.setColor(Color.WHITE);
+        glow.setRadius(40);
+        glow.setSpread(0.3);
+
+
+//        String estiloBotonABCD = "-fx-background-color: #ffff99;" +
+//                "-fx-border-color: #cccc00;" +
+//                "-fx-border-width: 3px;" + // grosor de la linea
+//                "-fx-background-radius: 50px;" + // pronunciacion de la curva
+//                "-fx-border-radius: 50px;" + // pronunciacion de la curva
+//                "-fx-font-weight: bold;" +
+//                "-fx-font-size: 50px;"; // tamaño de la letra
 
         for (char caracter = 'A'; caracter <= 'D'; caracter++){
+
             Button boton = new Button(String.valueOf(caracter));
-            boton.setPrefWidth(60);
-            boton.setStyle(estiloBotonABCD);
-            cambiarTamanyoBoton(boton, 1.25, 1.0);
+            boton.setPrefWidth(400);
+            boton.setPrefHeight(200);
+            boton.setFont(Font.font("Arial", FontWeight.BOLD, 70));
+            boton.setStyle("-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 4px;");
+
+            // Colores según la letra
+
+            switch (caracter){
+                case 'A':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #fd4d4d;" + // rojo suave
+                            "-fx-border-color: #b30000;");
+                    break;
+                case 'B':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #4d79ff;" +
+                            "-fx-border-color: #0033cc;");
+                    break;
+                case 'C':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #ffeb3b;" + // amarillo suave
+                            "-fx-border-color: #e6c300;");
+                    break;
+                case 'D':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #4dff4d;" + // verde suave
+                            "-fx-border-color: #00b300;");
+                    break;
+            }
+            //boton.setStyle(estiloBotonABCD);
+
+            // Efecto de brillo al pasar el ratón
+            boton.setOnMouseEntered(e ->
+                    boton.setEffect(glow)
+            );
+            boton.setOnMouseExited(e ->
+                    boton.setEffect(null)
+            );
+
+            cambiarTamanyoBoton(boton, 1.15, 1.0);
             filaBotonesABCD.getChildren().add(boton);
 
         }
 
-        // Añadimos opciones + botones ABCD al cuadro naranja
-        contenedorOpciones.getChildren().addAll(columnaOpciones, filaBotonesABCD);
+        //fuera del cuadro naranja
+        contenedorOpciones.getChildren().add(columnaOpciones);
 
 
 
@@ -178,10 +275,12 @@ public class PreguntaOpcionMultipleFX {
         contenedorBotones.setAlignment(Pos.CENTER); // centramos los botones
 
         //Layout principal
-        VBox root = new VBox(20, /*titulo*/cajaTitulo, contenedorOpciones, contenedorBotones);
+        VBox root = new VBox(20, cajaTitulo, contenedorOpciones, filaBotonesABCD, contenedorBotones);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER); //centrar el bloque
         //root.getChildren().add(cajaTitulo); //añadir la propia caja
+
+        root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
         Scene scene = new Scene(root,600,400);
         stage.setScene(scene);

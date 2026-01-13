@@ -1,7 +1,6 @@
 package org.example.quizzen.preguntas;
 
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
+import javafx.animation.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +11,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
@@ -168,6 +168,7 @@ public class PreguntaOpcionMultipleFX {
 //                "-fx-font-weight: bold;" +
 //                "-fx-font-size: 50px;"; // tamaño de la letra
 
+
         for (char caracter = 'A'; caracter <= 'D'; caracter++){
 
             Button boton = new Button(String.valueOf(caracter));
@@ -211,7 +212,12 @@ public class PreguntaOpcionMultipleFX {
             );
 
             cambiarTamanyoBoton(boton, 1.15, 1.0);
-            filaBotonesABCD.getChildren().add(boton);
+
+            StackPane contenedor = new StackPane(boton);
+            contenedor.setPrefSize(boton.getPrefWidth(), boton.getPrefHeight());
+            filaBotonesABCD.getChildren().add(contenedor);
+            //filaBotonesABCD.getChildren().add(boton);
+            aplicarEfectoOndas(boton);
 
         }
 
@@ -225,15 +231,18 @@ public class PreguntaOpcionMultipleFX {
         Button btonSiguiente = new Button("Siguiente");
 
         //tamaño fijo para evitar reorganicaciones de la colocación:
-        btonAtras.setPrefWidth(120);
-        btonSiguiente.setPrefWidth(120);
+        btonAtras.setPrefWidth(220);
+        btonAtras.setPrefHeight(70);
+
+        btonSiguiente.setPrefWidth(220);
+        btonSiguiente.setPrefHeight(70);
 
         //Estilo css colores morado con degradado
 
         String estiloBoton =
                 "-fx-background-color: linear-gradient(to bottom right, #d8b4fe, #7c3aed);" +
                         "-fx-background-radius: 10;" +
-                        "-fx-padding: 10 20 10 20;" +
+                        "-fx-padding: 10 30 10 30;" +
                         "-fx-text-fill: white;" +
                         "-fx-font-weight: bold;";
 
@@ -270,7 +279,7 @@ public class PreguntaOpcionMultipleFX {
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         btonSiguiente.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        HBox contenedorBotones = new HBox(20,btonAtras,btonSiguiente);
+        HBox contenedorBotones = new HBox(40,btonAtras,btonSiguiente);
         contenedorBotones.setPadding(new Insets(20,0,0,0));
         contenedorBotones.setAlignment(Pos.CENTER); // centramos los botones
 
@@ -316,5 +325,30 @@ public class PreguntaOpcionMultipleFX {
                 hacerBotonGrande.playFromStart());
         unBotonCualquiera.setOnMouseExited(e ->
                 botonTamanyoNormal.playFromStart());
+    }
+
+    private void aplicarEfectoOndas(Button boton){
+        boton.setOnMouseClicked( e ->{
+
+            Circle onda = new Circle(0, Color.rgb(255,255,255,0.4)); // color blanco semitransparente
+            onda.setCenterX(e.getX());
+            onda.setCenterY(e.getY());
+
+            StackPane parent = (StackPane) boton.getParent();
+            parent.getChildren().add(onda);
+
+            Timeline animacion = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(onda.radiusProperty(), 0),
+                            new KeyValue(onda.opacityProperty(), 1)),
+                    new KeyFrame(Duration.millis(400),
+                            new KeyValue(onda.radiusProperty(), 200),
+                            new KeyValue(onda.opacityProperty(), 0))
+            );
+
+            animacion.setOnFinished(ev -> parent.getChildren().remove(onda));
+            animacion.play();
+
+        });
     }
 }

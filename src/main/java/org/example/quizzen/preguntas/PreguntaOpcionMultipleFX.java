@@ -53,7 +53,7 @@ public class PreguntaOpcionMultipleFX {
 
         VBox contenedorOpciones = new VBox(20);
         contenedorOpciones.setAlignment(Pos.CENTER);
-        VBox.setMargin(contenedorOpciones, new Insets(5, 200, 5, 200)); //Separarlo de los margenes
+        VBox.setMargin(contenedorOpciones, new Insets(5, 300, 5, 300)); //Separarlo de los margenes
 
         //Estilo del cuadro naraja
         contenedorOpciones.setStyle(

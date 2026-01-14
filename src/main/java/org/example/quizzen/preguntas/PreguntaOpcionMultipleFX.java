@@ -25,29 +25,7 @@ public class PreguntaOpcionMultipleFX {
         //VBox root = new VBox(20, titulo, contenidoOpcion, contenedorBotones);
 
         // Titulo:
-        Label titulo = new Label(preguntaOpcionMultiple.getEnunciado());
-        titulo.setFont(Font.font("Arial", FontWeight.BOLD,24)); // Amigable, legible, con grosor
-        titulo.setWrapText(true);
-        titulo.setMaxWidth(Double.MAX_VALUE); // Para que pueda centrarse
-        titulo.setAlignment(Pos.CENTER); // Centra dentro del Label
-        titulo.setTextAlignment(TextAlignment.CENTER); //centrar el texto
-
-        //caja para el titulo
-        VBox cajaTitulo = new VBox(titulo);
-        cajaTitulo.setAlignment(Pos.CENTER);
-        cajaTitulo.setPadding(new Insets(20));
-
-        //cajaTitulo.setMaxWidth(Double.MAX_VALUE); //la caja ocupa todo el ancho
-        VBox.setMargin(cajaTitulo, new Insets(10));
-
-        //estilo de la caja
-        cajaTitulo.setStyle(
-                "-fx-background-color: #ccffcc;"+ // verde claro
-                "-fx-border-color: #2e8b57;" + // borde verde oscuro
-                "-fx-border-width: 5px;"+
-                "-fx-border-radius: 50px;"+
-                "-fx-background-radius: 50px;"
-        );
+        VBox cajaTitulo = cajaDelTitulo(preguntaOpcionMultiple);
 
         // caja principal de las opciones
 
@@ -296,6 +274,41 @@ public class PreguntaOpcionMultipleFX {
         stage.setTitle("PreguntaOpcionMultiple");
         stage.show();
 
+    }
+
+    /**
+     * Este metodo recibe el título de un objeto {@link PreguntaOpcionMultiple} y se extrae el titulo de la pregunta
+     * dandole un formate en el centrarse. Al mismo tiempo el {@link Label} que contiene el titulo será inducido a un objeto
+     * de tipo caja {@link VBox} para centrarlo en la ventana y dandole un formato concreto, tamaño y color.
+     * @param preguntaOpcionMultiple es un objeto del backen dond está compuesto las preguntas y las diversas opciones.
+     * @return devuelve un objeto de tipo {@link VBox} para despues iniciar su visualización en la ventana.
+     */
+
+    private static VBox cajaDelTitulo(PreguntaOpcionMultiple preguntaOpcionMultiple) {
+        Label titulo = new Label(preguntaOpcionMultiple.getEnunciado());
+        titulo.setFont(Font.font("Arial", FontWeight.BOLD,24)); // Amigable, legible, con grosor
+        titulo.setWrapText(true);
+        titulo.setMaxWidth(Double.MAX_VALUE); // Para que pueda centrarse
+        titulo.setAlignment(Pos.CENTER); // Centra dentro del Label
+        titulo.setTextAlignment(TextAlignment.CENTER); //centrar el texto
+
+        //caja para el titulo
+        VBox cajaTitulo = new VBox(titulo);
+        cajaTitulo.setAlignment(Pos.CENTER);
+        cajaTitulo.setPadding(new Insets(20));
+
+        //cajaTitulo.setMaxWidth(Double.MAX_VALUE); //la caja ocupa todo el ancho
+        VBox.setMargin(cajaTitulo, new Insets(10));
+
+        //estilo de la caja
+        cajaTitulo.setStyle(
+                "-fx-background-color: #ccffcc;"+ // verde claro
+                "-fx-border-color: #2e8b57;" + // borde verde oscuro
+                "-fx-border-width: 5px;"+
+                "-fx-border-radius: 50px;"+
+                "-fx-background-radius: 50px;"
+        );
+        return cajaTitulo;
     }
 
     /**

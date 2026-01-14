@@ -28,11 +28,9 @@ public class PreguntaOpcionMultipleFX {
         VBox cajaTitulo = cajaDelTitulo(preguntaOpcionMultiple);
 
         // caja principal de las opciones
-
         VBox contenedorOpciones = cajaPrincipalDeLasOpciones();
 
         // Opciones:
-
         VBox columnaOpciones = new VBox(15); //contenedir en vertical
         columnaOpciones.setAlignment(Pos.CENTER_LEFT); // centramos las opciones
 

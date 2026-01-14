@@ -42,77 +42,9 @@ public class PreguntaOpcionMultipleFX {
 
 
         // las opciones deben estar escritas en dos cajas, la primera con la susodicha opcion y la segunda con la información
-        char letra = 'A';
-        for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){
+        generarSubcajas(preguntaOpcionMultiple, contenedorOpciones);
 
-            //Fila completa de la opción
-            HBox filaOpcion = new HBox(10);
-            filaOpcion.setAlignment(Pos.CENTER_LEFT);
-            //filaOpcion.setPadding(new Insets(10));
 
-            // caja pequeña para A, B, C y D
-            Label labelLetra = new Label(letra + ")");
-            labelLetra.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-            labelLetra.setAlignment(Pos.CENTER);
-            labelLetra.setMinWidth(40);
-
-            StackPane cajaLetra = new StackPane(labelLetra);
-            cajaLetra.setPadding(new Insets(8));
-            cajaLetra.setStyle( "-fx-background-color: #ffffff;" +
-                    "-fx-border-color: #999999;" +
-                    "-fx-border-width: 2px;" +
-                    "-fx-border-radius: 8px;" +
-                    "-fx-background-radius: 8px;"
-            );
-
-            // caja grande para el texto de las opciones
-            Label textoOpcion = new Label(opcion.getSentencia());
-            textoOpcion.setFont(Font.font("Arial", 16));
-            textoOpcion.setWrapText(true);
-
-            textoOpcion.setAlignment(Pos.CENTER_LEFT);
-            StackPane.setAlignment(textoOpcion, Pos.CENTER_LEFT);
-
-            StackPane cajaTexto = new StackPane(textoOpcion);
-            cajaTexto.setPadding(new Insets(8));
-            cajaTexto.setStyle( "-fx-background-color: #ffffff;" +
-                    "-fx-border-color: #999999;" +
-                    "-fx-border-width: 2px;" +
-                    "-fx-border-radius: 8px;" +
-                    "-fx-background-radius: 8px;"
-            );
-
-            cajaTexto.setMaxWidth(Double.MAX_VALUE);
-
-            HBox.setHgrow(cajaTexto, Priority.ALWAYS);
-
-            // Añadimos las dos cajas a la misma línea
-            filaOpcion.getChildren().addAll(cajaLetra, cajaTexto);
-
-            // Añadimos la fila al cuadro naranja
-            contenedorOpciones.getChildren().add(filaOpcion);
-
-            filaOpcion.setStyle(
-                    "-fx-background-color: #ffffff;" +
-                    "-fx-border-color: #999999;" +
-                    "-fx-border-width: 2px;" +
-                    "-fx-border-radius: 8px;" +
-                    "-fx-background-radius: 8px;" );
-
-//            Label textoOpcion = new Label(letra + ") " + opcion.getSentencia());
-//            textoOpcion.setFont(Font.font("Arial", 16));
-//            filaOpcion.getChildren().add(textoOpcion);
-//            columnaOpciones.getChildren().add(filaOpcion);
-//
-//            RadioButton radioButton = new RadioButton(letra+") "+opcion.getSentencia());
-
-            // con radioButton solo puede haber una selección correcta. sin el setToggleGroup se pueden selecionar varias opciones.
-//            radioButton.setToggleGroup(grupoOpciones);
-//            radioButton.setFont(Font.font("Arial",16));
-//            contenidoOpcion.getChildren().add(radioButton); //los resultados aparecen uno debajo del otro.
-
-            letra++; // a) despues b) despues c) ...
-        }
         // botones A, B, C y D debajo del cuadro de las opciones
 
         HBox filaBotonesABCD = new HBox(20);
@@ -262,6 +194,80 @@ public class PreguntaOpcionMultipleFX {
         stage.setTitle("PreguntaOpcionMultiple");
         stage.show();
 
+    }
+
+    private static void generarSubcajas(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox contenedorOpciones) {
+        char letra = 'A';
+        for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){
+
+            //Fila completa de la opción
+            HBox filaOpcion = new HBox(10);
+            filaOpcion.setAlignment(Pos.CENTER_LEFT);
+            //filaOpcion.setPadding(new Insets(10));
+
+            // caja pequeña para A, B, C y D
+            Label labelLetra = new Label(letra + ")");
+            labelLetra.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            labelLetra.setAlignment(Pos.CENTER);
+            labelLetra.setMinWidth(40);
+
+            StackPane cajaLetra = new StackPane(labelLetra);
+            cajaLetra.setPadding(new Insets(8));
+            cajaLetra.setStyle( "-fx-background-color: #ffffff;" +
+                    "-fx-border-color: #999999;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;"
+            );
+
+            // caja grande para el texto de las opciones
+            Label textoOpcion = new Label(opcion.getSentencia());
+            textoOpcion.setFont(Font.font("Arial", 16));
+            textoOpcion.setWrapText(true);
+
+            textoOpcion.setAlignment(Pos.CENTER_LEFT);
+            StackPane.setAlignment(textoOpcion, Pos.CENTER_LEFT);
+
+            StackPane cajaTexto = new StackPane(textoOpcion);
+            cajaTexto.setPadding(new Insets(8));
+            cajaTexto.setStyle( "-fx-background-color: #ffffff;" +
+                    "-fx-border-color: #999999;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;"
+            );
+
+            cajaTexto.setMaxWidth(Double.MAX_VALUE);
+
+            HBox.setHgrow(cajaTexto, Priority.ALWAYS);
+
+            // Añadimos las dos cajas a la misma línea del cuadro naranja
+            filaOpcion.getChildren().addAll(cajaLetra, cajaTexto);
+
+            // Añadimos la fila completa al cuadro naranja
+            contenedorOpciones.getChildren().add(filaOpcion);
+
+            filaOpcion.setStyle(
+                    "-fx-background-color: #ffffff;" +
+                    "-fx-border-color: #999999;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;" );
+
+//            Label textoOpcion = new Label(letra + ") " + opcion.getSentencia());
+//            textoOpcion.setFont(Font.font("Arial", 16));
+//            filaOpcion.getChildren().add(textoOpcion);
+//            columnaOpciones.getChildren().add(filaOpcion);
+//
+//            RadioButton radioButton = new RadioButton(letra+") "+opcion.getSentencia());
+
+            // con radioButton solo puede haber una selección correcta. sin el setToggleGroup se pueden selecionar varias opciones.
+//            radioButton.setToggleGroup(grupoOpciones);
+//            radioButton.setFont(Font.font("Arial",16));
+//            contenidoOpcion.getChildren().add(radioButton); //los resultados aparecen uno debajo del otro.
+
+            letra++; // a) despues b) despues c) ...
+        }
     }
 
     /**

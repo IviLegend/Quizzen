@@ -29,19 +29,7 @@ public class PreguntaOpcionMultipleFX {
 
         // caja principal de las opciones
 
-        VBox contenedorOpciones = new VBox(20);
-        contenedorOpciones.setAlignment(Pos.CENTER);
-        VBox.setMargin(contenedorOpciones, new Insets(5, 300, 5, 300)); //Separarlo de los margenes
-
-        //Estilo del cuadro naraja
-        contenedorOpciones.setStyle(
-                "-fx-background-color: #ffcc99;" +
-                "-fx-border-color: #cc6600;" +
-                "-fx-border-width: 4px;" +
-                "-fx-border-radius: 10px;" +
-                "-fx-background-radius: 10px;"
-        );
-        contenedorOpciones.setPadding(new Insets(20));
+        VBox contenedorOpciones = cajaPrincipalDeLasOpciones();
 
         // Opciones:
 
@@ -274,6 +262,28 @@ public class PreguntaOpcionMultipleFX {
         stage.setTitle("PreguntaOpcionMultiple");
         stage.show();
 
+    }
+
+    /**
+     * Este metodo genera la caja principal donde estarán las multiples opciones y su estilo de diseño.
+     * @return devuelve un objeto caja {@link VBox} para mostrarlo posteriormente en la ventana
+     */
+
+    private static VBox cajaPrincipalDeLasOpciones() {
+        VBox contenedorOpciones = new VBox(20);
+        contenedorOpciones.setAlignment(Pos.CENTER);
+        VBox.setMargin(contenedorOpciones, new Insets(5, 300, 5, 300)); //Separarlo de los margenes
+
+        //Estilo del cuadro naraja
+        contenedorOpciones.setStyle(
+                "-fx-background-color: #ffcc99;" +
+                "-fx-border-color: #cc6600;" +
+                "-fx-border-width: 4px;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;"
+        );
+        contenedorOpciones.setPadding(new Insets(20));
+        return contenedorOpciones;
     }
 
     /**

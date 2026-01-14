@@ -196,6 +196,21 @@ public class PreguntaOpcionMultipleFX {
 
     }
 
+    /**
+     * Este metodo genera subcajas en la caja principal naranja donde se contendra las opciones. Dichas subcajas se comportaran de
+     * la siguiente manera, en dos columnas, la primera columna estará contenida las diversas opciones "A", "B", "C", "D", y en la
+     * segunda columna estará contenida la información de cada opción.
+     * <p>Para ello se utiliza un objeto {@link HBox} que contiene la fila completa de una opcion. y dentro de este objeto
+     * contiene dos objetos de tipo {@link Label} que seran los que contiene la informacion de la propia opcion "A", "B", "C", "D"
+     * seguido de un caracter ")", y en la segundo, contiene la propia información. Despues usamos el objeto {@link StackPane}
+     * que sirve para darle una un estilo en la parte visual.</p>
+     * @param preguntaOpcionMultiple recibe este objeto que contiene las diversas opciones para descomponerlo y sacar las opciones
+     *                               para posteriormente mostrarlo en la ventana
+     * @param contenedorOpciones este objeto es la caja principal naranja donde se visualiza las diferentes opciones. Para que se
+     *                           entienda, es como un molde donde encima de esta manta se colocan los plantos y cubiertos, es decir
+     *                           las opciones.
+     */
+
     private static void generarSubcajas(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox contenedorOpciones) {
         char letra = 'A';
         for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){

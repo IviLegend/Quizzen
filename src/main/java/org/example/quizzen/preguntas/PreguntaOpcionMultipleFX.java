@@ -400,6 +400,19 @@ public class PreguntaOpcionMultipleFX {
                 botonTamanyoNormal.playFromStart());
     }
 
+    /** * Aplica un efecto visual de onda expansiva al botón indicado cuando el usuario hace clic sobre él.
+     *
+     *  <p>Al producirse el clic, se genera un círculo blanco semitransparente en la * posición exacta del cursor.
+     *  Este círculo se expande rápidamente mientras reduce * su opacidad, creando un efecto de onda o “ripple” similar
+     *  al de las interfaces * modernas.</p>
+     *
+     *  <p>El efecto se construye mediante una animación {@link Timeline} que modifica el radio y la opacidad del círculo
+     *  durante 400 milisegundos. Una vez finalizada * la animación, el círculo se elimina automáticamente del contenedor
+     *  padre ({@link StackPane}) del botón.</p>
+     *
+     *  @param boton botón al que se le aplicará el efecto de onda al hacer clic
+     *  */
+
     private void aplicarEfectoOndas(Button boton){
         boton.setOnMouseClicked( e ->{
 
@@ -415,7 +428,7 @@ public class PreguntaOpcionMultipleFX {
                             new KeyValue(onda.radiusProperty(), 0),
                             new KeyValue(onda.opacityProperty(), 1)),
                     new KeyFrame(Duration.millis(400),
-                            new KeyValue(onda.radiusProperty(), 200),
+                            new KeyValue(onda.radiusProperty(), 100),
                             new KeyValue(onda.opacityProperty(), 0))
             );
 

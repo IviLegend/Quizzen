@@ -125,14 +125,30 @@ public class PreguntaOpcionMultipleFX {
 
 
     /**
-     * Este metodo genera los botones donde el usuario puede interactuar con el para marcar la respuesta que el considera correcta.
-     * Cada boton, generado desde el 'A' al 'D' tiene una brillo de resplandor cuando se generan.
-     * <p>A su vez, dentro de esta función genera un buble donde crea dichos botones, para ello añadie la inicial de la resuesta
-     * a, b, c y d, donde le mete un estilo visual y un tamaño 400(ancho) por 200(alto). Cada boton tiene su propio color, siguiendo
-     * el orden, A) -> ROJO, B)-> </p>
-     * @param filaBotonesABCD
-     * @param contenedorOpciones
-     * @param columnaOpciones
+     * Genera y configura los botones de interacción correspondientes a las opciones de respuesta
+     * (A, B, C y D) que el usuario puede seleccionar durante la pregunta.
+     *
+     * <p>Cada botón se crea con un tamaño fijo de 400 px de ancho por 200 px de alto, un estilo
+     * visual redondeado y un color distintivo según la opción:
+     * <ul>
+     *     <li>A → Rojo</li>
+     *     <li>B → Azul</li>
+     *     <li>C → Amarillo</li>
+     *     <li>D → Verde</li>
+     * </ul>
+     * Además, todos los botones incorporan un efecto de resplandor blanco que se activa al pasar
+     * el cursor por encima.</p>
+     *
+     * <p>Durante la creación, cada botón también aplica el efecto visual definido en el método
+     * {@link #cambiarTamanyoBoton(Button, double, double)}, que ajusta su tamaño al interactuar
+     * con el usuario. Asimismo, se aplica un efecto adicional mediante {@code aplicarEfectoOndas(Button)}.</p>
+     *
+     * <p>Finalmente, los botones generados se añaden al contenedor horizontal proporcionado, y la
+     * columna de opciones se incorpora al contenedor principal.</p>
+     *
+     * @param filaBotonesABCD     contenedor horizontal donde se insertarán los botones A, B, C y D
+     * @param contenedorOpciones  contenedor principal que agrupa las opciones de respuesta
+     * @param columnaOpciones     columna que contiene los elementos relacionados con las opciones
      */
 
     private void botonesDeInteraccionConLasPreguntas(HBox filaBotonesABCD, VBox contenedorOpciones, VBox columnaOpciones) {

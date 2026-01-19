@@ -1,6 +1,10 @@
 package org.example.quizzen.preguntas;
 
-public abstract class Pregunta
+public class Pregunta
 {
     String enunciado;
+
+    public Pregunta(String enunciado) {
+        this.enunciado = enunciado;
+    }
 }

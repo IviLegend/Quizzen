@@ -8,6 +8,13 @@ public class Test
 {
     private String nombre;
     private String descripcion;
-    private Categoria categoria;
+    private String categoria;
     private ArrayList<Pregunta> preguntas;
+
+    public Test(String nombre, String descripcion, String categoria, ArrayList<Pregunta> preguntas) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.preguntas = preguntas;
+    }
 }

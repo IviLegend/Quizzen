@@ -1,7 +1,14 @@
 package org.example.quizzen;
 
+import org.example.quizzen.preguntas.Opcion;
+import org.example.quizzen.preguntas.Pregunta;
+import org.example.quizzen.preguntas.PreguntaDesarrollo;
+import org.example.quizzen.preguntas.PreguntaOpcionMultiple;
+import org.example.quizzen.test.Categoria;
+import org.example.quizzen.test.Test;
+
 import java.sql.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class GestorTest {
     public static void main(String[] args) {
@@ -21,6 +28,7 @@ public class GestorTest {
 
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
+            ArrayList<Test> tests = new ArrayList<>();
             while (rs.next()) {
                 int idTest = rs.getInt("id_test");
                 String nombre = rs.getString("nombre");
@@ -33,11 +41,20 @@ public class GestorTest {
                 String sqlPreguntas = "SELECT * FROM Pregunta WHERE Test_id_test LIKE " + idTest;
                 Statement stPreguntas = conexion.createStatement();
                 ResultSet rsPreguntas = stPreguntas.executeQuery(sqlPreguntas);
+                ArrayList<Pregunta> preguntas = new ArrayList<>();
                 System.out.println("- Preguntas: ");
                 while (rsPreguntas.next()){
                     String enunciado = rsPreguntas.getString("enunciado");
+                    boolean esDesarrollo = rsPreguntas.getBoolean("tipo_pregunta");
+                    if (esDesarrollo){
+                        PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, new ArrayList<String>(), false);
+                        preguntas.add(pregunta);
+                    } else {
+                        PreguntaOpcionMultiple pregunta = new PreguntaOpcionMultiple(enunciado, new ArrayList<Opcion>());
+                        preguntas.add(pregunta);
+                    }
                 }
-
+                tests.add(new Test(nombre, descripcion, categoria, preguntas));
             }
 
         } catch (ClassNotFoundException e) {

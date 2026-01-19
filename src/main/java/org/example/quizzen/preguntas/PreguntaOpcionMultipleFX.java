@@ -34,11 +34,6 @@ public class PreguntaOpcionMultipleFX {
         VBox columnaOpciones = new VBox(15); //contenedir en vertical
         columnaOpciones.setAlignment(Pos.CENTER_LEFT); // centramos las opciones
 
-//        ToggleGroup grupoOpciones = new ToggleGroup(); // solo se seleciona una opción
-//        VBox contenidoOpcion = new VBox(10); //contenedir en vertical
-//        contenidoOpcion.setAlignment(Pos.CENTER); // centramos las opciones
-
-
         // las opciones deben estar escritas en dos cajas, la primera con la susodicha opcion y la segunda con la información
         generarSubcajas(preguntaOpcionMultiple, contenedorOpciones);
 
@@ -49,77 +44,11 @@ public class PreguntaOpcionMultipleFX {
         filaBotonesABCD.setAlignment(Pos.CENTER);
 
         //Efecto de brillo:
-        DropShadow glow = new DropShadow();
-
-        glow.setColor(Color.WHITE);
-        glow.setRadius(40);
-        glow.setSpread(0.3);
+        //aquí los botones
 
 
-//        String estiloBotonABCD = "-fx-background-color: #ffff99;" +
-//                "-fx-border-color: #cccc00;" +
-//                "-fx-border-width: 3px;" + // grosor de la linea
-//                "-fx-background-radius: 50px;" + // pronunciacion de la curva
-//                "-fx-border-radius: 50px;" + // pronunciacion de la curva
-//                "-fx-font-weight: bold;" +
-//                "-fx-font-size: 50px;"; // tamaño de la letra
 
-
-        for (char caracter = 'A'; caracter <= 'D'; caracter++){
-
-            Button boton = new Button(String.valueOf(caracter));
-            boton.setPrefWidth(400);
-            boton.setPrefHeight(200);
-            boton.setFont(Font.font("Arial", FontWeight.BOLD, 70));
-            boton.setStyle("-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 4px;");
-
-            // Colores según la letra
-
-            switch (caracter){
-                case 'A':
-                    boton.setStyle(boton.getStyle() +
-                            "-fx-background-color: #fd4d4d;" + // rojo suave
-                            "-fx-border-color: #b30000;");
-                    break;
-                case 'B':
-                    boton.setStyle(boton.getStyle() +
-                            "-fx-background-color: #4d79ff;" +
-                            "-fx-border-color: #0033cc;");
-                    break;
-                case 'C':
-                    boton.setStyle(boton.getStyle() +
-                            "-fx-background-color: #ffeb3b;" + // amarillo suave
-                            "-fx-border-color: #e6c300;");
-                    break;
-                case 'D':
-                    boton.setStyle(boton.getStyle() +
-                            "-fx-background-color: #4dff4d;" + // verde suave
-                            "-fx-border-color: #00b300;");
-                    break;
-            }
-            //boton.setStyle(estiloBotonABCD);
-
-            // Efecto de brillo al pasar el ratón
-            boton.setOnMouseEntered(e ->
-                    boton.setEffect(glow)
-            );
-            boton.setOnMouseExited(e ->
-                    boton.setEffect(null)
-            );
-
-            cambiarTamanyoBoton(boton, 1.15, 1.0);
-
-            StackPane contenedor = new StackPane(boton);
-            contenedor.setPrefSize(boton.getPrefWidth(), boton.getPrefHeight());
-            filaBotonesABCD.getChildren().add(contenedor);
-            //filaBotonesABCD.getChildren().add(boton);
-            aplicarEfectoOndas(boton);
-
-        }
-
-        //fuera del cuadro naranja
-        contenedorOpciones.getChildren().add(columnaOpciones);
-
+        botonesDeInteraccionConLasPreguntas(filaBotonesABCD, contenedorOpciones, columnaOpciones);
 
 
         // botones para ir hacia adelante o hacia atrás
@@ -192,6 +121,92 @@ public class PreguntaOpcionMultipleFX {
         stage.setTitle("PreguntaOpcionMultiple");
         stage.show();
 
+    }
+
+
+    /**
+     * Este metodo genera los botones donde el usuario puede interactuar con el para marcar la respuesta que el considera correcta.
+     * Cada boton, generado desde el 'A' al 'D' tiene una brillo de resplandor cuando se generan.
+     * <p>A su vez, dentro de esta función genera un buble donde crea dichos botones, para ello añadie la inicial de la resuesta
+     * a, b, c y d, donde le mete un estilo visual y un tamaño 400(ancho) por 200(alto). Cada boton tiene su propio color, siguiendo
+     * el orden, A) -> ROJO, B)-> </p>
+     * @param filaBotonesABCD
+     * @param contenedorOpciones
+     * @param columnaOpciones
+     */
+
+    private void botonesDeInteraccionConLasPreguntas(HBox filaBotonesABCD, VBox contenedorOpciones, VBox columnaOpciones) {
+
+        // efecto visual de resplandor
+        DropShadow glow = new DropShadow();
+        glow.setColor(Color.WHITE);
+        glow.setRadius(40); // radio del efecto
+        glow.setSpread(0.3);
+
+
+//        String estiloBotonABCD = "-fx-background-color: #ffff99;" +
+//                "-fx-border-color: #cccc00;" +
+//                "-fx-border-width: 3px;" + // grosor de la linea
+//                "-fx-background-radius: 50px;" + // pronunciacion de la curva
+//                "-fx-border-radius: 50px;" + // pronunciacion de la curva
+//                "-fx-font-weight: bold;" +
+//                "-fx-font-size: 50px;"; // tamaño de la letra
+
+
+        for (char caracter = 'A'; caracter <= 'D'; caracter++){
+
+            Button boton = new Button(String.valueOf(caracter));
+            boton.setPrefWidth(400);
+            boton.setPrefHeight(200);
+            boton.setFont(Font.font("Arial", FontWeight.BOLD, 70));
+            boton.setStyle("-fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 4px;");
+
+            // Colores según la letra
+
+            switch (caracter){
+                case 'A':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #fd4d4d;" + // rojo suave
+                            "-fx-border-color: #b30000;");
+                    break;
+                case 'B':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #4d79ff;" +
+                            "-fx-border-color: #0033cc;"); // azul suabe
+                    break;
+                case 'C':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #ffeb3b;" + // amarillo suave
+                            "-fx-border-color: #e6c300;");
+                    break;
+                case 'D':
+                    boton.setStyle(boton.getStyle() +
+                            "-fx-background-color: #4dff4d;" + // verde suave
+                            "-fx-border-color: #00b300;");
+                    break;
+            }
+            //boton.setStyle(estiloBotonABCD);
+
+            // Efecto de brillo al pasar el ratón
+            boton.setOnMouseEntered(e ->
+                    boton.setEffect(glow)
+            );
+            boton.setOnMouseExited(e ->
+                    boton.setEffect(null)
+            );
+
+            cambiarTamanyoBoton(boton, 1.15, 1.0);
+
+            StackPane contenedor = new StackPane(boton);
+            contenedor.setPrefSize(boton.getPrefWidth(), boton.getPrefHeight());
+            filaBotonesABCD.getChildren().add(contenedor);
+            //filaBotonesABCD.getChildren().add(boton);
+            aplicarEfectoOndas(boton);
+
+        }
+
+        //fuera del cuadro naranja
+        contenedorOpciones.getChildren().add(columnaOpciones);
     }
 
     /**

@@ -44,11 +44,22 @@ public class GestorTest {
                 ArrayList<Pregunta> preguntas = new ArrayList<>();
                 System.out.println("- Preguntas: ");
                 while (rsPreguntas.next()){
+                    System.out.println("Enunciado");
                     String enunciado = rsPreguntas.getString("enunciado");
                     boolean esDesarrollo = rsPreguntas.getBoolean("tipo_pregunta");
+
                     if (esDesarrollo){
-                        PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, new ArrayList<String>(), false);
-                        preguntas.add(pregunta);
+                        String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Desarrollo WHERE Pregunta_Enunciado LIKE " + enunciado;
+                        Statement stPreguntasDesarrollo = conexion.createStatement();
+                        ResultSet rsPreguntasDesarrollo = stPreguntasDesarrollo.executeQuery(sqlPreguntasDesarrollo);
+                        System.out.println("- Preguntas: ");
+                        while (rsPreguntasDesarrollo.next()){
+                            String respuesta = rsPreguntasDesarrollo.getString("respuesta");
+                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuesta, false);
+                            preguntas.add(pregunta);
+                            System.out.println(" * "+ enunciado + ": " + respuesta);
+                        }
+
                     } else {
                         PreguntaOpcionMultiple pregunta = new PreguntaOpcionMultiple(enunciado, new ArrayList<Opcion>());
                         preguntas.add(pregunta);

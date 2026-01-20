@@ -13,6 +13,6 @@ public class GestorPartida
 
     public void responderPregunta()
     {
-
+        // TODO: Coger la respuesta de la interfaz
     }
 }

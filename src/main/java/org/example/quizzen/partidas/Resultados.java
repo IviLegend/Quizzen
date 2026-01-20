@@ -19,5 +19,6 @@ public class Resultados
     {
         return respuestas.size();
     }
+
 }
 

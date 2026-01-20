@@ -20,5 +20,8 @@ public class Resultados
         return respuestas.size();
     }
 
+    public Map<Pregunta, String> getRespuestas() {
+        return respuestas;
+    }
 }
 

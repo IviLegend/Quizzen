@@ -8,10 +8,7 @@ public class Resultados
 {
     public Map<Pregunta,String> respuestas;
 
-    public Resultados()
-    {
-
-    }
+    public Resultados() {}
 
     public void anyadirRespuestaFallada(Pregunta preguntaActual, String respuestaUsuario)
     {

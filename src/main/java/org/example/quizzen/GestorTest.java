@@ -35,32 +35,42 @@ public class GestorTest {
                 String descripcion = rs.getString("descripcion");
                 String categoria = rs.getString("categoria");
                 System.out.println(
-                        " - Nombre: " + nombre +
+                        "- Nombre: " + nombre +
                                 "| Descripción: " + descripcion +
                                 "| Categoría: " + categoria);
                 String sqlPreguntas = "SELECT * FROM Pregunta WHERE Test_id_test LIKE " + idTest;
                 Statement stPreguntas = conexion.createStatement();
                 ResultSet rsPreguntas = stPreguntas.executeQuery(sqlPreguntas);
                 ArrayList<Pregunta> preguntas = new ArrayList<>();
-                System.out.println("- Preguntas: ");
+//                System.out.println(" · Preguntas: ");
                 while (rsPreguntas.next()){
-                    System.out.println("Enunciado");
+//                    System.out.println("Enunciado:");
                     String enunciado = rsPreguntas.getString("enunciado");
-                    boolean esDesarrollo = rsPreguntas.getBoolean("tipo_pregunta");
+                    int tipoPregunta = rsPreguntas.getInt("tipoPregunta");
 
-                    if (esDesarrollo){
-                        String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Desarrollo WHERE Pregunta_Enunciado LIKE " + enunciado;
+                    if (tipoPregunta == 1){
+                        String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Desarrollo WHERE Pregunta_Enunciado LIKE '" + enunciado + "'";
                         Statement stPreguntasDesarrollo = conexion.createStatement();
                         ResultSet rsPreguntasDesarrollo = stPreguntasDesarrollo.executeQuery(sqlPreguntasDesarrollo);
-                        System.out.println("- Preguntas: ");
+//                        System.out.println("- Preguntas: ");
                         while (rsPreguntasDesarrollo.next()){
-                            String respuesta = rsPreguntasDesarrollo.getString("respuesta");
-                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuesta, false);
+                            String respuestaCorrecta = rsPreguntasDesarrollo.getString("respuesta");
+                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, false);
                             preguntas.add(pregunta);
-                            System.out.println(" * "+ enunciado + ": " + respuesta);
+                            System.out.println(" * "+ enunciado + ": " + respuestaCorrecta);
                         }
 
-                    } else {
+                    } else if (tipoPregunta == 2){
+                        String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Opcion_Multiple WHERE Pregunta_Enunciado LIKE '" + enunciado + "'";
+                        Statement stPreguntasOpcionMultiple = conexion.createStatement();
+                        ResultSet rsPreguntasOpcionMultiple = stPreguntasOpcionMultiple.executeQuery(sqlPreguntasDesarrollo);
+//                        System.out.println("- Preguntas: ");
+                        while (rsPreguntasOpcionMultiple.next()){
+                            String respuestaCorrecta = rsPreguntasOpcionMultiple.getString("respuesta");
+                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, false);
+                            preguntas.add(pregunta);
+                            System.out.println(" * "+ enunciado + ": " + respuestaCorrecta);
+                        }
                         PreguntaOpcionMultiple pregunta = new PreguntaOpcionMultiple(enunciado, new ArrayList<Opcion>());
                         preguntas.add(pregunta);
                     }
@@ -71,7 +81,7 @@ public class GestorTest {
         } catch (ClassNotFoundException e) {
             System.out.println("No se ha encontrado el driver de MySQL.");
         } catch (SQLException e) {
-            System.out.println("Error al conectar con la base de datos.");
+            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
         } finally {
             if (conexion != null) {
                 try {

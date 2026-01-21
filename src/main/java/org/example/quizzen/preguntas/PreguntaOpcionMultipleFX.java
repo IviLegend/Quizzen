@@ -427,6 +427,25 @@ public class PreguntaOpcionMultipleFX {
 
             int index = letra - 'A'; // A=0, B=1, C=2, D=3
 
+            for (Node nodo: columnaOpciones.getChildren()){
+                if (nodo instanceof HBox filaOpcion){
+                    filaOpcion.setStyle("-fx-background-color: #ffffff;" +
+                            "-fx-border-color: #999999;" +
+                            "-fx-border-width: 2px;" +
+                            "-fx-border-radius: 8px;" +
+                            "-fx-background-radius: 8px;");
+                    for (Node sub: filaOpcion.getChildren()){
+                        sub.setStyle("-fx-background-color: #ffffff;" +
+                                "-fx-border-color: #999999;" +
+                                "-fx-border-width: 2px;" +
+                                "-fx-border-radius: 8px;" +
+                                "-fx-background-radius: 8px;");
+                    }
+                }
+            }
+
+
+
             HBox fila = (HBox) columnaOpciones.getChildren().get(index);
 
             // colorear la fila completa

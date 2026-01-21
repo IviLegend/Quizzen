@@ -36,7 +36,7 @@ public class PreguntaOpcionMultipleFX {
         columnaOpciones.setAlignment(Pos.CENTER_LEFT); // centramos las opciones
 
         // las opciones deben estar escritas en dos cajas, la primera con la susodicha opcion y la segunda con la información
-        generarSubcajas(preguntaOpcionMultiple, contenedorOpciones);
+        generarSubcajas(preguntaOpcionMultiple, contenedorOpciones, columnaOpciones);
 
 
         // botones A, B, C y D debajo del cuadro de las opciones
@@ -241,7 +241,7 @@ public class PreguntaOpcionMultipleFX {
      *                           las opciones.
      */
 
-    private static void generarSubcajas(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox contenedorOpciones) {
+    private static void generarSubcajas(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox contenedorOpciones,  VBox columnaOpciones) {
         char letra = 'A';
         for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){
 
@@ -291,6 +291,7 @@ public class PreguntaOpcionMultipleFX {
 
             // Añadimos la fila completa al cuadro naranja
             contenedorOpciones.getChildren().add(filaOpcion);
+            columnaOpciones.getChildren().add(filaOpcion);
 
             filaOpcion.setStyle(
                     "-fx-background-color: #ffffff;" +

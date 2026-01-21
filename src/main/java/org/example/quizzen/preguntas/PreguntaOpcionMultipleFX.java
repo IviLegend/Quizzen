@@ -3,6 +3,7 @@ package org.example.quizzen.preguntas;
 import javafx.animation.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -35,7 +36,7 @@ public class PreguntaOpcionMultipleFX {
         columnaOpciones.setAlignment(Pos.CENTER_LEFT); // centramos las opciones
 
         // las opciones deben estar escritas en dos cajas, la primera con la susodicha opcion y la segunda con la información
-        generarSubcajas(preguntaOpcionMultiple, contenedorOpciones);
+        generarSubcajas(preguntaOpcionMultiple, contenedorOpciones, columnaOpciones);
 
 
         // botones A, B, C y D debajo del cuadro de las opciones
@@ -217,7 +218,7 @@ public class PreguntaOpcionMultipleFX {
             contenedor.setPrefSize(boton.getPrefWidth(), boton.getPrefHeight());
             filaBotonesABCD.getChildren().add(contenedor);
             //filaBotonesABCD.getChildren().add(boton);
-            aplicarEfectoOndas(boton);
+            aplicarEfectoOndas(boton, columnaOpciones, caracter);
 
         }
 
@@ -240,7 +241,7 @@ public class PreguntaOpcionMultipleFX {
      *                           las opciones.
      */
 
-    private static void generarSubcajas(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox contenedorOpciones) {
+    private static void generarSubcajas(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox contenedorOpciones,  VBox columnaOpciones) {
         char letra = 'A';
         for (Opcion opcion: preguntaOpcionMultiple.getOpciones()){
 
@@ -290,6 +291,7 @@ public class PreguntaOpcionMultipleFX {
 
             // Añadimos la fila completa al cuadro naranja
             contenedorOpciones.getChildren().add(filaOpcion);
+            columnaOpciones.getChildren().add(filaOpcion);
 
             filaOpcion.setStyle(
                     "-fx-background-color: #ffffff;" +
@@ -297,18 +299,6 @@ public class PreguntaOpcionMultipleFX {
                     "-fx-border-width: 2px;" +
                     "-fx-border-radius: 8px;" +
                     "-fx-background-radius: 8px;" );
-
-//            Label textoOpcion = new Label(letra + ") " + opcion.getSentencia());
-//            textoOpcion.setFont(Font.font("Arial", 16));
-//            filaOpcion.getChildren().add(textoOpcion);
-//            columnaOpciones.getChildren().add(filaOpcion);
-//
-//            RadioButton radioButton = new RadioButton(letra+") "+opcion.getSentencia());
-
-            // con radioButton solo puede haber una selección correcta. sin el setToggleGroup se pueden selecionar varias opciones.
-//            radioButton.setToggleGroup(grupoOpciones);
-//            radioButton.setFont(Font.font("Arial",16));
-//            contenidoOpcion.getChildren().add(radioButton); //los resultados aparecen uno debajo del otro.
 
             letra++; // a) despues b) despues c) ...
         }
@@ -413,7 +403,7 @@ public class PreguntaOpcionMultipleFX {
      *  @param boton botón al que se le aplicará el efecto de onda al hacer clic
      *  */
 
-    private void aplicarEfectoOndas(Button boton){
+    private void aplicarEfectoOndas(Button boton, VBox columnaOpciones, char letra){
         boton.setOnMouseClicked( e ->{
 
             Circle onda = new Circle(0, Color.rgb(255,255,255,0.4)); // color blanco semitransparente
@@ -434,6 +424,47 @@ public class PreguntaOpcionMultipleFX {
 
             animacion.setOnFinished(ev -> parent.getChildren().remove(onda));
             animacion.play();
+
+            int index = letra - 'A'; // A=0, B=1, C=2, D=3
+
+            for (Node nodo: columnaOpciones.getChildren()){
+                if (nodo instanceof HBox filaOpcion){
+                    filaOpcion.setStyle("-fx-background-color: #ffffff;" +
+                            "-fx-border-color: #999999;" +
+                            "-fx-border-width: 2px;" +
+                            "-fx-border-radius: 8px;" +
+                            "-fx-background-radius: 8px;");
+                    for (Node sub: filaOpcion.getChildren()){
+                        sub.setStyle("-fx-background-color: #ffffff;" +
+                                "-fx-border-color: #999999;" +
+                                "-fx-border-width: 2px;" +
+                                "-fx-border-radius: 8px;" +
+                                "-fx-background-radius: 8px;");
+                    }
+                }
+            }
+
+
+
+            HBox fila = (HBox) columnaOpciones.getChildren().get(index);
+
+            // colorear la fila completa
+            fila.setStyle( "-fx-background-color: #ccffcc;" +
+                    "-fx-border-color: #66cc66;" +
+                    "-fx-border-width: 2px;" +
+                    "-fx-border-radius: 8px;" +
+                    "-fx-background-radius: 8px;" );
+            // colorear subcajas
+
+            for (Node sub : fila.getChildren()) {
+                if (sub instanceof StackPane) {
+                    sub.setStyle( "-fx-background-color: #ccffcc;" +
+                            "-fx-border-color: #66cc66;" +
+                            "-fx-border-width: 2px;" +
+                            "-fx-border-radius: 8px;" +
+                            "-fx-background-radius: 8px;");
+                }
+            }
 
         });
     }

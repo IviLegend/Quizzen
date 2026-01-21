@@ -5,9 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.quizzen.preguntas.Opcion;
-import org.example.quizzen.preguntas.PreguntaOpcionMultiple;
-import org.example.quizzen.preguntas.PreguntaOpcionMultipleFX;
+import org.example.quizzen.preguntas.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,5 +33,12 @@ public class HelloApplication extends Application {
         )));
 
        new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple);
+
+        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
+        preguntaDesarrollo.setEnunciado("Defineme el modelo del absolutismo de Fernando IV y por que no tubo tanta repercusión con su hija Isabel II");
+
+        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
+
+
     }
 }

@@ -39,6 +39,9 @@ public class PreguntaOpcionMultipleFX {
         // las opciones deben estar escritas en dos cajas, la primera con la susodicha opcion y la segunda con la información
         generarSubcajas(preguntaOpcionMultiple, contenedorOpciones, columnaOpciones);
 
+        //Recordar la opcion marcada por el usuario
+        recordarOpcionMarcada(preguntaOpcionMultiple, columnaOpciones);
+
 
         // botones A, B, C y D debajo del cuadro de las opciones
 
@@ -50,7 +53,7 @@ public class PreguntaOpcionMultipleFX {
 
 
 
-        botonesDeInteraccionConLasPreguntas(filaBotonesABCD, contenedorOpciones, columnaOpciones);
+        botonesDeInteraccionConLasPreguntas(filaBotonesABCD, contenedorOpciones, columnaOpciones, preguntaOpcionMultiple);
 
 
         // botones para ir hacia adelante o hacia atrás
@@ -132,6 +135,22 @@ public class PreguntaOpcionMultipleFX {
         return root;
     }
 
+    private static void recordarOpcionMarcada(PreguntaOpcionMultiple preguntaOpcionMultiple, VBox columnaOpciones) {
+        Integer seleccion = preguntaOpcionMultiple.getRespuestaSeleccionada();
+        if (seleccion != null){
+            HBox fila = (HBox) columnaOpciones.getChildren().get(seleccion);
+
+            fila.setStyle("-fx-background-color: #ccffcc; -fx-border-color: #66cc66; -fx-border-width: 2px; -fx-border-radius: 8px; -fx-background-radius: 8px;");
+
+            for (Node sub : fila.getChildren()) {
+                if (sub instanceof StackPane) {
+                    sub.setStyle("-fx-background-color: #ccffcc; -fx-border-color: #66cc66; -fx-border-width: 2px; -fx-border-radius: 8px; -fx-background-radius: 8px;");
+                }
+            }
+
+        }
+    }
+
 
     /**
      * Genera y configura los botones de interacción correspondientes a las opciones de respuesta
@@ -160,7 +179,7 @@ public class PreguntaOpcionMultipleFX {
      * @param columnaOpciones     columna que contiene los elementos relacionados con las opciones
      */
 
-    private void botonesDeInteraccionConLasPreguntas(HBox filaBotonesABCD, VBox contenedorOpciones, VBox columnaOpciones) {
+    private void botonesDeInteraccionConLasPreguntas(HBox filaBotonesABCD, VBox contenedorOpciones, VBox columnaOpciones, PreguntaOpcionMultiple pregunta) {
 
         // efecto visual de resplandor
         DropShadow glow = new DropShadow();
@@ -226,7 +245,7 @@ public class PreguntaOpcionMultipleFX {
             contenedor.setPrefSize(boton.getPrefWidth(), boton.getPrefHeight());
             filaBotonesABCD.getChildren().add(contenedor);
             //filaBotonesABCD.getChildren().add(boton);
-            aplicarEfectoOndas(boton, columnaOpciones, caracter);
+            aplicarEfectoOndas(boton, columnaOpciones, caracter, pregunta);
 
         }
 
@@ -411,7 +430,7 @@ public class PreguntaOpcionMultipleFX {
      *  @param boton botón al que se le aplicará el efecto de onda al hacer clic
      *  */
 
-    private void aplicarEfectoOndas(Button boton, VBox columnaOpciones, char letra){
+    private void aplicarEfectoOndas(Button boton, VBox columnaOpciones, char letra, PreguntaOpcionMultiple pregunta){
         boton.setOnMouseClicked( e ->{
 
             Circle onda = new Circle(0, Color.rgb(255,255,255,0.4)); // color blanco semitransparente
@@ -434,6 +453,9 @@ public class PreguntaOpcionMultipleFX {
             animacion.play();
 
             int index = letra - 'A'; // A=0, B=1, C=2, D=3
+
+            pregunta.setRespuestaSeleccionada(index);
+
 
             for (Node nodo: columnaOpciones.getChildren()){
                 if (nodo instanceof HBox filaOpcion){

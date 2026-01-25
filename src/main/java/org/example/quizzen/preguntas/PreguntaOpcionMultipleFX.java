@@ -140,7 +140,7 @@ public class PreguntaOpcionMultipleFX {
         if (seleccion != null){
             HBox fila = (HBox) columnaOpciones.getChildren().get(seleccion);
 
-            fila.setStyle("-fx-background-color: #ccffcc; -fx-border-color: #66cc66; -fx-border-width: 2px; -fx-border-radius: 8px; -fx-background-radius: 8px;");
+            //fila.setStyle("-fx-background-color: #ccffcc; -fx-border-color: #66cc66; -fx-border-width: 2px; -fx-border-radius: 8px; -fx-background-radius: 8px;");
 
             for (Node sub : fila.getChildren()) {
                 if (sub instanceof StackPane) {
@@ -479,11 +479,11 @@ public class PreguntaOpcionMultipleFX {
             HBox fila = (HBox) columnaOpciones.getChildren().get(index);
 
             // colorear la fila completa
-            fila.setStyle( "-fx-background-color: #ccffcc;" +
-                    "-fx-border-color: #66cc66;" +
-                    "-fx-border-width: 2px;" +
-                    "-fx-border-radius: 8px;" +
-                    "-fx-background-radius: 8px;" );
+//            fila.setStyle( "-fx-background-color: #ccffcc;" +
+//                    "-fx-border-color: #66cc66;" +
+//                    "-fx-border-width: 2px;" +
+//                    "-fx-border-radius: 8px;" +
+//                    "-fx-background-radius: 8px;" );
             // colorear subcajas
 
             for (Node sub : fila.getChildren()) {

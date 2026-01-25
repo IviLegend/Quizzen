@@ -22,7 +22,7 @@ import org.example.quizzen.HelloApplication;
 
 public class PreguntaOpcionMultipleFX {
 
-    public void mostrar(Stage stage, PreguntaOpcionMultiple preguntaOpcionMultiple, HelloApplication app){
+    public Node mostrar(Stage stage, PreguntaOpcionMultiple preguntaOpcionMultiple, HelloApplication app){
 
         //VBox root = new VBox(20, titulo, contenidoOpcion, contenedorBotones);
 
@@ -121,11 +121,15 @@ public class PreguntaOpcionMultipleFX {
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
-        Scene scene = new Scene(root,600,400);
-        stage.setScene(scene);
-        stage.setTitle("PreguntaOpcionMultiple");
-        stage.show();
+        //esto de abajo esta comentado porque genera un molesto parpadeo ya que se esta creado nuevas escenas.
+//        Scene scene = new Scene(root,600,400);
+//        stage.setScene(scene);
+//        stage.setTitle("PreguntaOpcionMultiple");
+//        stage.show();
 
+        //stage.setFullScreen(true); // para la pantalla completa.
+
+        return root;
     }
 
 

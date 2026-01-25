@@ -1,6 +1,10 @@
 package org.example.quizzen;
 
 import javafx.application.Application;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.example.quizzen.preguntas.*;
 
@@ -10,11 +14,20 @@ import java.util.List;
 
 public class HelloApplication extends Application {
 
+    private BorderPane root; // contenedor principal
     private ArrayList<Pregunta> listaPreguntas;
     private int indiceActual = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
+
+
+        stage.setFullScreenExitHint(""); // esto de abajo evita que aparezca el tipico mensaje de : si quieres salir de la pantalla completa pulsa esc
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); //esto evita que si se pulsa el boton esc se deja de estar en pantalla completa
+        stage.setFullScreen(true);
+
+
+
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 //        stage.setTitle("Hello!");
@@ -25,6 +38,11 @@ public class HelloApplication extends Application {
 //        System.out.println("Alvaro");
 
         listaPreguntas= muchasPreguntas();
+
+        root = new BorderPane();
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
 
 
         mostrarPregunta(stage);
@@ -62,10 +80,12 @@ public class HelloApplication extends Application {
 
         Pregunta pregunta = listaPreguntas.get(indiceActual);
 
-        stage.setFullScreen(true); // 🔥 fuerza pantalla completa SIEMPRE
+        //stage.setFullScreen(true); // fuerza pantalla completa SIEMPRE
 
         if (pregunta instanceof PreguntaOpcionMultiple preguntaOpcionMultiple){
-            new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple,this);
+            Node vista = new PreguntaOpcionMultipleFX().mostrar(stage, preguntaOpcionMultiple, this);
+            root.setCenter(vista); //esto hace que solo cambi el contenido, no la escena.
+            //new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple,this);
         }
 
 

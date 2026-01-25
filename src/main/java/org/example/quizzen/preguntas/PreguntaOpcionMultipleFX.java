@@ -18,10 +18,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.quizzen.HelloApplication;
 
 public class PreguntaOpcionMultipleFX {
 
-    public void mostrar(Stage stage, PreguntaOpcionMultiple preguntaOpcionMultiple){
+    public Node mostrar(Stage stage, PreguntaOpcionMultiple preguntaOpcionMultiple, HelloApplication app){
 
         //VBox root = new VBox(20, titulo, contenidoOpcion, contenedorBotones);
 
@@ -101,6 +102,9 @@ public class PreguntaOpcionMultipleFX {
 
         cambiarTamanyoBoton(btonSiguiente,1.25,1.0);
 
+        btonSiguiente.setOnMouseClicked( e -> app.siguientePregunta(stage));
+        btonAtras.setOnMouseClicked(e -> app.preguntaAnterior(stage));
+
 
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         btonSiguiente.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
@@ -117,11 +121,15 @@ public class PreguntaOpcionMultipleFX {
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
-        Scene scene = new Scene(root,600,400);
-        stage.setScene(scene);
-        stage.setTitle("PreguntaOpcionMultiple");
-        stage.show();
+        //esto de abajo esta comentado porque genera un molesto parpadeo ya que se esta creado nuevas escenas.
+//        Scene scene = new Scene(root,600,400);
+//        stage.setScene(scene);
+//        stage.setTitle("PreguntaOpcionMultiple");
+//        stage.show();
 
+        //stage.setFullScreen(true); // para la pantalla completa.
+
+        return root;
     }
 
 

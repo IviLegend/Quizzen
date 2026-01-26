@@ -5,11 +5,12 @@ import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -18,11 +19,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.quizzen.HelloApplication;
 
 public class PreguntaDesarrolloFX {
 
 
-    public void mostrar(Stage stage, PreguntaDesarrollo preguntaDesarrollo){
+    public Node mostrar(Stage stage, PreguntaDesarrollo preguntaDesarrollo, HelloApplication app){
 
         // Titulo:
         VBox cajaTitulo = cajaDelTitulo(preguntaDesarrollo);
@@ -60,8 +62,8 @@ public class PreguntaDesarrolloFX {
         cambiarTamanyoBoton(btonSiguiente,1.25,1.0);
 
         //Para pasar a la siguiente pregunta
-//        btonSiguiente.setOnMouseClicked( e -> app.siguientePregunta(stage));
-//        btonAtras.setOnMouseClicked(e -> app.preguntaAnterior(stage));
+        btonSiguiente.setOnMouseClicked( e -> app.siguientePregunta(stage));
+        btonAtras.setOnMouseClicked(e -> app.preguntaAnterior(stage));
 
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         btonSiguiente.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
@@ -78,19 +80,30 @@ public class PreguntaDesarrolloFX {
         //root.getChildren().add(cajaTitulo); //añadir la propia caja
 
 
+        root.setFillWidth(true);
+        root.setMaxWidth(Double.MAX_VALUE);
+        root.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(root, Priority.ALWAYS);
+
+        root.setPadding(new Insets(20));
+        root.setAlignment(Pos.CENTER);
+
 
         //VBox root = new VBox(cajaTitulo, contenedorOpciones, contenedorOpciones);
         Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene); stage.show();
+        stage.setScene(scene);
+
+        stage.setFullScreen(true);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setMaximized(true);
+
+        stage.show();
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
 
-
-
-
-
-
+        return root;
     }
 
     /**

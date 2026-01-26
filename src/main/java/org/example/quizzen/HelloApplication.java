@@ -37,23 +37,23 @@ public class HelloApplication extends Application {
 //        System.out.println("Ivan");
 //        System.out.println("Alvaro");
 
-//        listaPreguntas= muchasPreguntas();
+        listaPreguntas= muchasPreguntas();
+
+        root = new BorderPane();
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+
+
+        mostrarPregunta(stage);
+
+
+
+
+//        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
+//        preguntaDesarrollo.setEnunciado("Que es Odoo");
 //
-//        root = new BorderPane();
-//        Scene scene = new Scene(root, 800, 600);
-//        stage.setScene(scene);
-//        stage.show();
-//
-//
-//        mostrarPregunta(stage);
-
-
-
-
-        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-        preguntaDesarrollo.setEnunciado("Que es Odoo");
-
-        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
+//        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
 
 //        for (Pregunta pregunta:listaPreguntas) {
 //            if (pregunta instanceof PreguntaOpcionMultiple){
@@ -94,6 +94,9 @@ public class HelloApplication extends Application {
             Node vista = new PreguntaOpcionMultipleFX().mostrar(stage, preguntaOpcionMultiple, this);
             root.setCenter(vista); //esto hace que solo cambi el contenido, no la escena.
             //new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple,this);
+        } else if (pregunta instanceof PreguntaDesarrollo preguntaDesarrollo){
+            Node vista = new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo, this);
+            root.setCenter(vista);
         }
 
 
@@ -145,10 +148,14 @@ public class HelloApplication extends Application {
                 new Opcion("1429"),
                 new Opcion("2149")
         )));
+        PreguntaDesarrollo p4 = new PreguntaDesarrollo();
+        p4.setEnunciado("Desarrolla la etapa de Carlos II");
+
 
         muchasPregunta.add(p1);
         muchasPregunta.add(p2);
         muchasPregunta.add(p3);
+        muchasPregunta.add(p4);
 
         return muchasPregunta;
 

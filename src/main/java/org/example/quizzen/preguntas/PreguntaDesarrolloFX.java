@@ -29,7 +29,7 @@ public class PreguntaDesarrolloFX {
         // Titulo:
         VBox cajaTitulo = cajaDelTitulo(preguntaDesarrollo);
         // caja principal de las opciones
-        VBox contenedorOpciones = cajaPrincipalDeLaRespuesta();
+        VBox contenedorRespuesta = cajaPrincipalDeLaRespuesta(preguntaDesarrollo);
 
 
         // AÑADIR BOTONES
@@ -73,7 +73,7 @@ public class PreguntaDesarrolloFX {
         contenedorBotones.setAlignment(Pos.CENTER); // centramos los botones
 
         // AÑADIR FONDO
-        VBox root = new VBox(20, cajaTitulo, contenedorOpciones, contenedorBotones);
+        VBox root = new VBox(20, cajaTitulo, contenedorRespuesta, contenedorBotones);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER); //centrar el bloque
 
@@ -125,7 +125,7 @@ public class PreguntaDesarrolloFX {
         return cajaTitulo;
     }
 
-    private static VBox cajaPrincipalDeLaRespuesta() {
+    private static VBox cajaPrincipalDeLaRespuesta(PreguntaDesarrollo preguntaDesarrollo) {
         VBox contenedorPrincipal = new VBox(60);
         contenedorPrincipal.setAlignment(Pos.CENTER);
         VBox.setMargin(contenedorPrincipal, new Insets(5, 300, 10, 300)); //Separarlo de los margenes
@@ -147,6 +147,14 @@ public class PreguntaDesarrolloFX {
 
         // en vez de usar la clase Scanner, se usa la clase TextField ya que Scanner solo sirve para la consola.
         TextArea campoTexto = new TextArea();
+
+        //recuperar la respuesta
+        campoTexto.setText(preguntaDesarrollo.getRespuestaUsuario());
+
+        //para guardar la respuesta nueva respuesta
+        campoTexto.textProperty().addListener((obs, oldValue, newValue) -> {
+            preguntaDesarrollo.setRespuestaUsuario(newValue);
+        });
 
         campoTexto.setPromptText(""); // aqui se puede poner un texto
         campoTexto.setWrapText(true); // para que el texto salte de línea

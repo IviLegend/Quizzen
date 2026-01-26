@@ -73,12 +73,9 @@ public class PreguntaDesarrolloFX {
         contenedorBotones.setAlignment(Pos.CENTER); // centramos los botones
 
         // AÑADIR FONDO
-
         VBox root = new VBox(20, cajaTitulo, contenedorOpciones, contenedorBotones);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER); //centrar el bloque
-        //root.getChildren().add(cajaTitulo); //añadir la propia caja
-
 
         root.setFillWidth(true);
         root.setMaxWidth(Double.MAX_VALUE);
@@ -88,20 +85,7 @@ public class PreguntaDesarrolloFX {
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
 
-
-        //VBox root = new VBox(cajaTitulo, contenedorOpciones, contenedorOpciones);
-//        Scene scene = new Scene(root, 800, 600);
-//        stage.setScene(scene);
-//        stage.show();
-
-//        stage.setFullScreen(true);
-//        stage.setFullScreenExitHint("");
-//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-//        stage.setMaximized(true);
-
-
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
-
 
         return root;
     }
@@ -161,12 +145,10 @@ public class PreguntaDesarrolloFX {
         VBox.setMargin(subcaja,new Insets(0,60,200,60));
         subcaja.setAlignment(Pos.CENTER);
 
-        // Permite que la subcaja crezca dentro del contenedor principal.
-        //VBox.setVgrow(subcaja, Priority.ALWAYS);
-
         // en vez de usar la clase Scanner, se usa la clase TextField ya que Scanner solo sirve para la consola.
         TextArea campoTexto = new TextArea();
-        campoTexto.setPromptText("Escribe escruba su respuesta");
+
+        campoTexto.setPromptText(""); // aqui se puede poner un texto
         campoTexto.setWrapText(true); // para que el texto salte de línea
         campoTexto.setPrefHeight(150);
         campoTexto.setPrefWidth(500);
@@ -189,24 +171,6 @@ public class PreguntaDesarrolloFX {
                 "-fx-border-color: transparent;" // <-- asegura que no se dibuje nada
         );
 
-        //campoTexto.setStyle("-fx-font-size: 30px;"); // tamaño del texto
-
-
-        Platform.runLater(() -> {
-            campoTexto.lookup(".content").setStyle(
-                    "-fx-background-color: #ffffff;" +
-                            "-fx-background-radius: 0px;" +
-                            "-fx-padding: 10;" +
-                            "-fx-border-width: 0;" +
-                            "-fx-border-color: transparent;"
-            );
-        });
-
-
-        // permitir que el campo crezca dentro de la subcaja
-        //VBox.setVgrow(campoTexto,Priority.ALWAYS);
-        //campoTexto.setPrefHeight(10); //ajuste manual
-
         //Añadir el campo a la subcaja
         subcaja.getChildren().add(campoTexto);
 
@@ -220,11 +184,6 @@ public class PreguntaDesarrolloFX {
         subcaja.setPrefHeight(300);
 
         return contenedorPrincipal;
-    }
-
-
-    private void cajaDeLaRespuestaEscrita(){
-
     }
 
     private static void cambiarTamanyoBoton(Button unBotonCualquiera, double tamanyoGrande, double tamanyoNormal) {

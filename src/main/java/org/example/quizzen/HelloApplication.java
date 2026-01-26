@@ -37,15 +37,23 @@ public class HelloApplication extends Application {
 //        System.out.println("Ivan");
 //        System.out.println("Alvaro");
 
-        listaPreguntas= muchasPreguntas();
+//        listaPreguntas= muchasPreguntas();
+//
+//        root = new BorderPane();
+//        Scene scene = new Scene(root, 800, 600);
+//        stage.setScene(scene);
+//        stage.show();
+//
+//
+//        mostrarPregunta(stage);
 
-        root = new BorderPane();
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-        stage.show();
 
 
-        mostrarPregunta(stage);
+
+        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
+        preguntaDesarrollo.setEnunciado("Que es Odoo");
+
+        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
 
 //        for (Pregunta pregunta:listaPreguntas) {
 //            if (pregunta instanceof PreguntaOpcionMultiple){

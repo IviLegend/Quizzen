@@ -118,6 +118,7 @@ public class HelloApplication extends Application {
         }
 
     }
+
     private static ArrayList<Pregunta> muchasPreguntas(){
 
         ArrayList<Pregunta> muchasPregunta = new ArrayList<>();
@@ -152,10 +153,14 @@ public class HelloApplication extends Application {
         p4.setEnunciado("Desarrolla la etapa de Carlos II");
 
 
-        muchasPregunta.add(p1);
-        muchasPregunta.add(p2);
-        muchasPregunta.add(p3);
+        PreguntaDesarrollo p5 = new PreguntaDesarrollo();
+        p4.setEnunciado("Para que sirve el polimorfismo");
+
+//        muchasPregunta.add(p1);
+//        muchasPregunta.add(p2);
+//        muchasPregunta.add(p3);
         muchasPregunta.add(p4);
+        muchasPregunta.add(p5);
 
         return muchasPregunta;
 

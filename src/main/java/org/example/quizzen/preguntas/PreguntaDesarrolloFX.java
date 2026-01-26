@@ -90,15 +90,15 @@ public class PreguntaDesarrolloFX {
 
 
         //VBox root = new VBox(cajaTitulo, contenedorOpciones, contenedorOpciones);
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
+//        Scene scene = new Scene(root, 800, 600);
+//        stage.setScene(scene);
+//        stage.show();
 
-        stage.setFullScreen(true);
-        stage.setFullScreenExitHint("");
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setMaximized(true);
+//        stage.setFullScreen(true);
+//        stage.setFullScreenExitHint("");
+//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+//        stage.setMaximized(true);
 
-        stage.show();
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
@@ -161,14 +161,6 @@ public class PreguntaDesarrolloFX {
         VBox.setMargin(subcaja,new Insets(0,60,200,60));
         subcaja.setAlignment(Pos.CENTER);
 
-//        subcaja.setStyle(
-//                "-fx-background-color: #ffe6cc;" +
-//                        "-fx-border-color: #cc6600;" +
-//                        "-fx-border-width: 4px;" +
-//                        "-fx-border-radius: 30px;" +
-//                        "-fx-background-radius: 30px;"
-//        );
-
         // Permite que la subcaja crezca dentro del contenedor principal.
         //VBox.setVgrow(subcaja, Priority.ALWAYS);
 
@@ -199,14 +191,6 @@ public class PreguntaDesarrolloFX {
 
         //campoTexto.setStyle("-fx-font-size: 30px;"); // tamaño del texto
 
-        // aplicar curva al contenido interno
-
-//        Platform.runLater(() -> {
-//            campoTexto.lookup(".content").setStyle(
-//                    "-fx-background-radius: 30px;" +
-//                            "-fx-padding: 10;"
-//            );
-//        });
 
         Platform.runLater(() -> {
             campoTexto.lookup(".content").setStyle(

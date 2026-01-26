@@ -21,21 +21,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-
         stage.setFullScreenExitHint(""); // esto de abajo evita que aparezca el tipico mensaje de : si quieres salir de la pantalla completa pulsa esc
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); //esto evita que si se pulsa el boton esc se deja de estar en pantalla completa
         stage.setFullScreen(true);
-
-
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-//
-//        System.out.println("Ivan");
-//        System.out.println("Alvaro");
 
         listaPreguntas= muchasPreguntas();
 
@@ -44,43 +32,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-
         mostrarPregunta(stage);
-
-
-
-
-//        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-//        preguntaDesarrollo.setEnunciado("Que es Odoo");
-//
-//        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
-
-//        for (Pregunta pregunta:listaPreguntas) {
-//            if (pregunta instanceof PreguntaOpcionMultiple){
-//
-//                PreguntaOpcionMultiple preguntaOpcionMultiple = (PreguntaOpcionMultiple) pregunta;
-//                new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple, this);
-//
-//
-//            }
-//        }
-
-//        PreguntaOpcionMultiple preguntaOpcionMultiplePrueba = new PreguntaOpcionMultiple();
-//        preguntaOpcionMultiplePrueba.setEnunciado("¿Cuanto es 2 + 2?");
-//        preguntaOpcionMultiplePrueba.setOpciones( new ArrayList<>(List.of(
-//                new Opcion("4"),
-//                new Opcion("5"),
-//                new Opcion("3"),
-//                new Opcion("4,3")
-//        )));
-//
-//       new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiplePrueba);
-//
-//        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-//        preguntaDesarrollo.setEnunciado("Defineme el modelo del absolutismo de Fernando IV y por que no tubo tanta repercusión con su hija Isabel II");
-//
-//        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
-
 
     }
 
@@ -154,11 +106,11 @@ public class HelloApplication extends Application {
 
 
         PreguntaDesarrollo p5 = new PreguntaDesarrollo();
-        p4.setEnunciado("Para que sirve el polimorfismo");
+        p5.setEnunciado("Para que sirve el polimorfismo");
 
-//        muchasPregunta.add(p1);
-//        muchasPregunta.add(p2);
-//        muchasPregunta.add(p3);
+        muchasPregunta.add(p1);
+        muchasPregunta.add(p2);
+        muchasPregunta.add(p3);
         muchasPregunta.add(p4);
         muchasPregunta.add(p5);
 

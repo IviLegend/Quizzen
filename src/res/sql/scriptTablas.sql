@@ -1,18 +1,29 @@
+create schema if not exists Quizzen;
+use Quizzen;
+CREATE TABLE IF NOT EXISTS Usuario (
+    email VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(20),
+    contraseña VARCHAR(20),
+    foto_perfil BLOB,
+    fecha_creacion DATE,
+    ultimos_tests_cursados VARCHAR(100),
+    tests_creados VARCHAR(100)
+);
+
 CREATE TABLE IF NOT EXISTS Categoria (
     id_categoria INT PRIMARY KEY,
     nombre VARCHAR(15)
 );
 
 CREATE TABLE IF NOT EXISTS Test (
-    id_test INT PRIMARY KEY,
+    id_test INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(30),
     descripcion VARCHAR(60),
     imagen BLOB,
     fecha DATE,
     Usuario_email VARCHAR(50),
-    Categoria_id_categoria INT,
-    FOREIGN KEY (Usuario_email) REFERENCES Usuario(email),
-    FOREIGN KEY (Categoria_id_categoria) REFERENCES Categoria(id_categoria)
+    categoria VARCHAR(50),
+    FOREIGN KEY (Usuario_email) REFERENCES Usuario(email)
 );
 
 CREATE TABLE IF NOT EXISTS Partida (
@@ -30,29 +41,29 @@ CREATE TABLE IF NOT EXISTS Resultado (
 );
 
 CREATE TABLE IF NOT EXISTS Pregunta (
-    enunciado VARCHAR(80) PRIMARY KEY,
-    numero_preguntas INT,
+	id_pregunta INT PRIMARY KEY,
+    enunciado VARCHAR(80),
     Test_id_test INT,
+    tipoPregunta INT,
     FOREIGN KEY (Test_id_test) REFERENCES Test(id_test)
 );
 
 CREATE TABLE IF NOT EXISTS Pregunta_Desarrollo (
     respuesta VARCHAR(80),
-    Pregunta_enunciado VARCHAR(80),
-    FOREIGN KEY (Pregunta_enunciado) REFERENCES Pregunta(enunciado)
+    id_pregunta INT,
+    FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
 );
 
 CREATE TABLE IF NOT EXISTS Opcion (
-    id_opcion VARCHAR(45) PRIMARY KEY,
+    id_pregunta INT,
     texto_opcion VARCHAR(30),
-    es_correcto VARCHAR(45)
+    es_correcto BOOLEAN,
+    FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
 );
 
 CREATE TABLE IF NOT EXISTS Pregunta_Opcion_Multiple (
-    Pregunta_enunciado VARCHAR(80),
-    Opcion_id_opcion VARCHAR(45),
-    FOREIGN KEY (Pregunta_enunciado) REFERENCES Pregunta(enunciado),
-    FOREIGN KEY (Opcion_id_opcion) REFERENCES Opcion(id_opcion)
+    id_pregunta INT,
+    FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
 );
 
 select * from Usuario;
@@ -86,21 +97,24 @@ INSERT INTO Resultado VALUES ('A,B,C,D', 1);
 INSERT INTO Resultado VALUES ('C,D,A,B', 2);
 
 -- Pregunta
-INSERT INTO Pregunta VALUES ('¿Qué es una ecuación?', 1, 1);
-INSERT INTO Pregunta VALUES ('¿Quién fue Robespierre?', 2, 2);
+INSERT INTO Pregunta VALUES (1, '¿Qué es una ecuación?', 1, 1);
+INSERT INTO Pregunta VALUES (2, 'Elige la opción correcta', 2, 2);
 
 -- Pregunta_Desarrollo
-INSERT INTO Pregunta_Desarrollo VALUES ('Una igualdad con incógnitas', '¿Qué es una ecuación?');
-INSERT INTO Pregunta_Desarrollo VALUES ('Líder revolucionario francés', '¿Quién fue Robespierre?');
+INSERT INTO Pregunta_Desarrollo VALUES ('Una igualdad con incógnitas', 1);
+INSERT INTO Pregunta_Desarrollo VALUES ('Líder revolucionario francés', 2);
 
 -- Opcion
-INSERT INTO Opcion VALUES ('op1', '2x + 3 = 7', 'true');
-INSERT INTO Opcion VALUES ('op2', 'Robespierre fue emperador', 'false');
+INSERT INTO Opcion VALUES (2, '2 + 2 = 4', true);
+INSERT INTO Opcion VALUES (2, '2 + 2 = 5', false);
+INSERT INTO Opcion VALUES (2, '2 + 2 = 22', false);
+INSERT INTO Opcion VALUES (2, '2 + 2 = 9', false);
 
 -- Pregunta_Opcion_Multiple
-INSERT INTO Pregunta_Opcion_Multiple VALUES ('¿Qué es una ecuación?', 'op1');
-INSERT INTO Pregunta_Opcion_Multiple VALUES ('¿Quién fue Robespierre?', 'op2');
+INSERT INTO Pregunta_Opcion_Multiple VALUES (2);
+-- INSERT INTO Pregunta_Opcion_Multiple VALUES (2);
 
-
-
-
+SELECT * FROM Pregunta WHERE Test_id_test LIKE 2;
+-- SELECT * FROM Opcion WHERE Test_id_test LIKE 2
+SELECT * FROM Opcion WHERE id_pregunta LIKE 2;
+SELECT * FROM Pregunta WHERE id_pregunta LIKE 1;

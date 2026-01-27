@@ -16,6 +16,7 @@ public class GestorTest {
         String usuario = "alumno";
         String password = "alumno";
         Connection conexion = null;
+        ArrayList<Test> tests = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -28,7 +29,7 @@ public class GestorTest {
 
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            ArrayList<Test> tests = new ArrayList<>();
+
             while (rs.next()) {
                 int idTest = rs.getInt("id_test");
                 String nombre = rs.getString("nombre");
@@ -42,9 +43,8 @@ public class GestorTest {
                 Statement stPreguntas = conexion.createStatement();
                 ResultSet rsPreguntas = stPreguntas.executeQuery(sqlPreguntas);
                 ArrayList<Pregunta> preguntas = new ArrayList<>();
-//                System.out.println(" · Preguntas: ");
+
                 while (rsPreguntas.next()){
-//                    System.out.println("Enunciado:");
                     int idPregunta = rsPreguntas.getInt("id_pregunta");
                     String enunciado = rsPreguntas.getString("enunciado");
                     int tipoPregunta = rsPreguntas.getInt("tipoPregunta");
@@ -53,46 +53,38 @@ public class GestorTest {
                         String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Desarrollo WHERE id_pregunta LIKE " + idPregunta;
                         Statement stPreguntasDesarrollo = conexion.createStatement();
                         ResultSet rsPreguntasDesarrollo = stPreguntasDesarrollo.executeQuery(sqlPreguntasDesarrollo);
-//                        System.out.println("- Preguntas: ");
                         while (rsPreguntasDesarrollo.next()){
                             String respuestaCorrecta = rsPreguntasDesarrollo.getString("respuesta");
                             PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, false);
                             preguntas.add(pregunta);
                             System.out.println(" * "+ enunciado + ": " + respuestaCorrecta);
                         }
+                        rsPreguntasDesarrollo.close();
 
                     } else if (tipoPregunta == 2){
                         String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Opcion_Multiple WHERE id_pregunta LIKE " + idPregunta;
                         Statement stPreguntasOpcionMultiple = conexion.createStatement();
                         ResultSet rsPreguntasOpcionMultiple = stPreguntasOpcionMultiple.executeQuery(sqlPreguntasDesarrollo);
-//                        System.out.println("- Preguntas: ");
                         ArrayList<Opcion> opciones = new ArrayList<>();
                         while (rsPreguntasOpcionMultiple.next()){
-                            /*String respuestaCorrecta = rsPreguntasOpcionMultiple.getString("respuesta");
-                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, false);
-                            preguntas.add(pregunta);
-                            System.out.println(" * "+ enunciado + ": " + respuestaCorrecta);*/
                             String sqlOpciones = "SELECT * FROM Opcion WHERE id_pregunta LIKE " + idPregunta;
                             ResultSet rsOpciones = stPreguntas.executeQuery(sqlOpciones);
                             while (rsOpciones.next()){
                                 String textoOpcion = rsOpciones.getString("texto_opcion");
-                                String textoEsCorrecto = rsOpciones.getString("es_correcto");
-                                boolean esCorrecto = true;
-                                if (textoEsCorrecto.equals("true")){
-                                    esCorrecto = true;
-                                } else if (textoEsCorrecto.equals("false")){
-                                    esCorrecto = false;
-                                }
-                                System.out.println(textoOpcion + ", correcto = " + textoEsCorrecto);
+                                boolean esCorrecto = rsOpciones.getBoolean("es_correcto");
+
+                                System.out.println(textoOpcion + ", correcto = " + esCorrecto);
                                 opciones.add(new Opcion(textoOpcion, esCorrecto));
                             }
+                            PreguntaOpcionMultiple pregunta = new PreguntaOpcionMultiple(enunciado, opciones);
+                            preguntas.add(pregunta);
                         }
-                        PreguntaOpcionMultiple pregunta = new PreguntaOpcionMultiple(enunciado, opciones);
-                        preguntas.add(pregunta);
+                        rsPreguntasOpcionMultiple.close();
                     }
                 }
                 tests.add(new Test(nombre, descripcion, categoria, preguntas));
             }
+            rs.close();
 
         } catch (ClassNotFoundException e) {
             System.out.println("No se ha encontrado el driver de MySQL.");
@@ -108,5 +100,6 @@ public class GestorTest {
                 }
             }
         }
+        Test test = tests.get(0);
     }
 }

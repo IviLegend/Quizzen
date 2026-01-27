@@ -9,4 +9,8 @@ public class PreguntaOpcionMultiple extends Pregunta {
         super(enunciado);
         this.opciones = opciones;
     }
+
+    public ArrayList<Opcion> getOpciones() {
+        return opciones;
+    }
 }

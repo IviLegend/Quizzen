@@ -1,8 +1,11 @@
 package org.example.quizzen.partidas;
 
 import org.example.quizzen.preguntas.Pregunta;
+import org.example.quizzen.preguntas.PreguntaDesarrollo;
+import org.example.quizzen.preguntas.PreguntaOpcionMultiple;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class GestorPartida
 {
@@ -11,8 +14,41 @@ public class GestorPartida
 
     ArrayList<Pregunta> preguntas = partida.getTest().getPreguntas();
 
-    public void responderPregunta()
+
+
+    public boolean comprobarRespuesta(String respuestaUsu)
     {
-        // TODO: Coger la respuesta de la interfaz
+        Pregunta preguntaContestada = partida.getTest().getPreguntas().get(indicePregunta);
+        if ( preguntaContestada instanceof PreguntaDesarrollo)
+        {
+            PreguntaDesarrollo pregDessContestada= (PreguntaDesarrollo) preguntaContestada;
+
+
+
+        }else
+        {
+            PreguntaOpcionMultiple pregOpcContestada= (PreguntaOpcionMultiple) preguntaContestada;
+
+
+        }
+
+        return false;
     }
+
+    //Si devuelve true ya ha mostrado todas las preguntas que contiene el test
+    public boolean finalizarPartida()
+    {
+        return indicePregunta >= partida.getTest().getPreguntas().size();
+    }
+
+    //Solo funcionara la función cuando la partida este acabada, para evitar errores
+    public void mostrarPregFalladas()
+    {
+        if (finalizarPartida())
+        {
+            Map<Pregunta,String> totalPregFalladas= partida.getResultados().getRespuestas();
+            //todo mostrar contenido en la interfaz
+        }
+    }
+
 }

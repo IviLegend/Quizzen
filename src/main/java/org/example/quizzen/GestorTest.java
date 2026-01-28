@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class GestorTest {
-    public static void main(String[] args) {
+    public static ArrayList<Test> importarTests(){
         String url = "jdbc:mysql://127.0.0.1:3306/Quizzen";
         String usuario = "alumno";
         String password = "alumno";
@@ -55,11 +55,12 @@ public class GestorTest {
                         ResultSet rsPreguntasDesarrollo = stPreguntasDesarrollo.executeQuery(sqlPreguntasDesarrollo);
                         while (rsPreguntasDesarrollo.next()) {
                             String respuestaCorrecta = rsPreguntasDesarrollo.getString("respuesta");
-                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, false);
+                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, true);
                             preguntas.add(pregunta);
                             System.out.println(" * " + enunciado + ": " + respuestaCorrecta);
                         }
                         rsPreguntasDesarrollo.close();
+                        stPreguntasDesarrollo.close();
 
                     } else if (tipoPregunta == 2) {
                         String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Opcion_Multiple WHERE id_pregunta LIKE " + idPregunta;
@@ -81,12 +82,14 @@ public class GestorTest {
                             preguntas.add(pregunta);
                         }
                         rsPreguntasOpcionMultiple.close();
+                        rsPreguntasOpcionMultiple.close();
                     }
                 }
                 tests.add(new Test(nombre, descripcion, categoria, preguntas));
             }
 
             rs.close();
+            st.close();
 
         } catch (ClassNotFoundException e) {
             System.out.println("No se ha encontrado el driver de MySQL.");
@@ -102,6 +105,6 @@ public class GestorTest {
                 }
             }
         }
-        Test test = tests.get(0);
+        return tests;
     }
 }

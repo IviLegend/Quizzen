@@ -12,7 +12,6 @@ public class GestorPartida
 {
     private Partida partida;
     private int indicePregunta;
-
     ArrayList<Pregunta> preguntas = partida.getTest().getPreguntas();
 
 

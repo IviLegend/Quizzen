@@ -3,6 +3,7 @@ package org.example.quizzen.partidas;
 import org.example.quizzen.test.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Partida
 {
@@ -40,4 +41,7 @@ public class Partida
     {
         this.resultados = resultados;
     }
+
+
+
 }

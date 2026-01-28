@@ -37,7 +37,7 @@ public class HelloApplication extends Application {
 //        System.out.println("Ivan");
 //        System.out.println("Alvaro");
 
-        listaPreguntas= muchasPreguntas();
+        listaPreguntas= preguntasDePrueba();
 
         root = new BorderPane();
         Scene scene = new Scene(root, 800, 600);
@@ -118,7 +118,7 @@ public class HelloApplication extends Application {
         }
 
     }
-    private static ArrayList<Pregunta> muchasPreguntas(){
+    private static ArrayList<Pregunta> preguntasDePrueba(){
 
         ArrayList<Pregunta> muchasPregunta = new ArrayList<>();
 
@@ -150,7 +150,6 @@ public class HelloApplication extends Application {
         )));
         PreguntaDesarrollo p4 = new PreguntaDesarrollo();
         p4.setEnunciado("Desarrolla la etapa de Carlos II");
-
 
         muchasPregunta.add(p1);
         muchasPregunta.add(p2);

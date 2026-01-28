@@ -12,6 +12,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//Organizacion de tareas JUGABILIDAD DE UN TEST ALMACENAMIENTO BBDD Y VISUALIZACIÓN EN FX
+//todo generar un test el cual se sube a la BBDD
+//todo obtener la lista de tests de la BBDD
+//todo obtener el test deseado para jugar
+//todo arrancar partida con ese test
+//todo jugar la partida, mostrando las preguntas de forma random
+//todo comprobar la seleccion del jugador, si se falla se vera rojo y si se acierta verde
+//OPCIONAL: almacenando las respuestas falladas para usarlas en un futuro (si da tiempo)
+//todo finalizar test cuando se haya
+//OPCIONAL: mostrar los tets fallados del usuario
+//OPCIONAL: FIN
+
 public class HelloApplication extends Application {
 
     private BorderPane root; // contenedor principal

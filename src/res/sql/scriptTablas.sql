@@ -1,3 +1,4 @@
+DROP SCHEMA Quizzen;
 create schema if not exists Quizzen;
 use Quizzen;
 CREATE TABLE IF NOT EXISTS Usuario (
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Opcion (
     es_correcto BOOLEAN,
     FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
 );
-
+ 
 CREATE TABLE IF NOT EXISTS Pregunta_Opcion_Multiple (
     id_pregunta INT,
     FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
@@ -86,19 +87,26 @@ INSERT INTO Categoria VALUES (2, 'Historia');
 
 -- Test
 INSERT INTO Test VALUES (1, 'Álgebra básica', 'Test sobre operaciones algebraicas', NULL, '2025-03-01', 'ana@example.com', 1);
-INSERT INTO Test VALUES (2, 'Revolución Francesa', 'Preguntas sobre eventos clave', NULL, '2025-03-05', 'luis@example.com', 2);
+-- INSERT INTO Test VALUES (2, 'Revolución Francesa', 'Preguntas sobre eventos clave', NULL, '2025-03-05', 'luis@example.com', 2);
 
 -- Partida
 INSERT INTO Partida VALUES (1, 'ana@example.com', 1);
-INSERT INTO Partida VALUES (2, 'luis@example.com', 2);
+-- INSERT INTO Partida VALUES (2, 'luis@example.com', 2);
 
 -- Resultado
 INSERT INTO Resultado VALUES ('A,B,C,D', 1);
-INSERT INTO Resultado VALUES ('C,D,A,B', 2);
+-- INSERT INTO Resultado VALUES ('C,D,A,B', 2);
 
 -- Pregunta
 INSERT INTO Pregunta VALUES (1, '¿Qué es una ecuación?', 1, 1);
-INSERT INTO Pregunta VALUES (2, 'Elige la opción correcta', 2, 2);
+INSERT INTO Pregunta VALUES (2, 'Elige la opción correcta', 1, 2);
+/*
+	id_pregunta INT PRIMARY KEY,
+    enunciado VARCHAR(80),
+    Test_id_test INT,
+    tipoPregunta INT,
+    FOREIGN KEY (Test_id_test) REFERENCES Test(id_test)
+*/
 
 -- Pregunta_Desarrollo
 INSERT INTO Pregunta_Desarrollo VALUES ('Una igualdad con incógnitas', 1);

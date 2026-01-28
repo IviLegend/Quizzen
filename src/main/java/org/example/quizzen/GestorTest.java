@@ -29,7 +29,7 @@ public class GestorTest {
 
             Statement st = conexion.createStatement();
             ResultSet rs = st.executeQuery(sql);
-
+            ArrayList<Pregunta> preguntas = null;
             while (rs.next()) {
                 int idTest = rs.getInt("id_test");
                 String nombre = rs.getString("nombre");
@@ -42,34 +42,35 @@ public class GestorTest {
                 String sqlPreguntas = "SELECT * FROM Pregunta WHERE Test_id_test LIKE " + idTest;
                 Statement stPreguntas = conexion.createStatement();
                 ResultSet rsPreguntas = stPreguntas.executeQuery(sqlPreguntas);
-                ArrayList<Pregunta> preguntas = new ArrayList<>();
+                preguntas = new ArrayList<>();
 
-                while (rsPreguntas.next()){
+                while (rsPreguntas.next()) {
                     int idPregunta = rsPreguntas.getInt("id_pregunta");
                     String enunciado = rsPreguntas.getString("enunciado");
                     int tipoPregunta = rsPreguntas.getInt("tipoPregunta");
 
-                    if (tipoPregunta == 1){
+                    if (tipoPregunta == 1) {
                         String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Desarrollo WHERE id_pregunta LIKE " + idPregunta;
                         Statement stPreguntasDesarrollo = conexion.createStatement();
                         ResultSet rsPreguntasDesarrollo = stPreguntasDesarrollo.executeQuery(sqlPreguntasDesarrollo);
-                        while (rsPreguntasDesarrollo.next()){
+                        while (rsPreguntasDesarrollo.next()) {
                             String respuestaCorrecta = rsPreguntasDesarrollo.getString("respuesta");
                             PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, false);
                             preguntas.add(pregunta);
-                            System.out.println(" * "+ enunciado + ": " + respuestaCorrecta);
+                            System.out.println(" * " + enunciado + ": " + respuestaCorrecta);
                         }
                         rsPreguntasDesarrollo.close();
 
-                    } else if (tipoPregunta == 2){
+                    } else if (tipoPregunta == 2) {
                         String sqlPreguntasDesarrollo = "SELECT * FROM Pregunta_Opcion_Multiple WHERE id_pregunta LIKE " + idPregunta;
                         Statement stPreguntasOpcionMultiple = conexion.createStatement();
                         ResultSet rsPreguntasOpcionMultiple = stPreguntasOpcionMultiple.executeQuery(sqlPreguntasDesarrollo);
                         ArrayList<Opcion> opciones = new ArrayList<>();
-                        while (rsPreguntasOpcionMultiple.next()){
+                        while (rsPreguntasOpcionMultiple.next()) {
                             String sqlOpciones = "SELECT * FROM Opcion WHERE id_pregunta LIKE " + idPregunta;
-                            ResultSet rsOpciones = stPreguntas.executeQuery(sqlOpciones);
-                            while (rsOpciones.next()){
+                            Statement stOpciones = conexion.createStatement();
+                            ResultSet rsOpciones = stOpciones.executeQuery(sqlOpciones);
+                            while (rsOpciones.next()) {
                                 String textoOpcion = rsOpciones.getString("texto_opcion");
                                 boolean esCorrecto = rsOpciones.getBoolean("es_correcto");
 
@@ -84,6 +85,7 @@ public class GestorTest {
                 }
                 tests.add(new Test(nombre, descripcion, categoria, preguntas));
             }
+
             rs.close();
 
         } catch (ClassNotFoundException e) {

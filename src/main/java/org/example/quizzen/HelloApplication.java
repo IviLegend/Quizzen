@@ -123,7 +123,7 @@ public class HelloApplication extends Application {
         ArrayList<Pregunta> totalPreguntas = new ArrayList<>();
 
         PreguntaOpcionMultiple p1 = new PreguntaOpcionMultiple();
-        p1.setEnunciado("¿Cuanto es 2 + 2?");
+        p1.setEnunciado("¿Cuánto es 2 + 2?");
         p1.setOpciones( new ArrayList<>(List.of(
                 new Opcion("4"),
                 new Opcion("5"),
@@ -133,7 +133,7 @@ public class HelloApplication extends Application {
         p1.setRespuestaCorrecta("4");
 
         PreguntaOpcionMultiple p2 = new PreguntaOpcionMultiple();
-        p2.setEnunciado("¿Cuando se descurbio la gravedad");
+        p2.setEnunciado("¿Quién formuló la teoría la gravedad?");
         p2.setOpciones( new ArrayList<>(List.of(
                 new Opcion("Isaac Newton"),
                 new Opcion("Albert Einstein"),
@@ -143,7 +143,7 @@ public class HelloApplication extends Application {
         p2.setRespuestaCorrecta("Isaac Newton");
 
         PreguntaOpcionMultiple p3 = new PreguntaOpcionMultiple();
-        p3.setEnunciado("Cuando se descubrio america");
+        p3.setEnunciado("¿Cuándo se descubrió América?");
         p3.setOpciones( new ArrayList<>(List.of(
                 new Opcion("1942"),
                 new Opcion("1492"),

@@ -37,7 +37,7 @@ public class HelloApplication extends Application {
 //        System.out.println("Ivan");
 //        System.out.println("Alvaro");
 
-        listaPreguntas= muchasPreguntas();
+        listaPreguntas= preguntasTest();
 
         root = new BorderPane();
         Scene scene = new Scene(root, 800, 600);
@@ -118,9 +118,9 @@ public class HelloApplication extends Application {
         }
 
     }
-    private static ArrayList<Pregunta> muchasPreguntas(){
+    private static ArrayList<Pregunta> preguntasTest(){
 
-        ArrayList<Pregunta> muchasPregunta = new ArrayList<>();
+        ArrayList<Pregunta> totalPreguntas = new ArrayList<>();
 
         PreguntaOpcionMultiple p1 = new PreguntaOpcionMultiple();
         p1.setEnunciado("¿Cuanto es 2 + 2?");
@@ -152,15 +152,48 @@ public class HelloApplication extends Application {
         )));
         p3.setRespuestaCorrecta("1492");
 
+        PreguntaDesarrollo p4 = getPreguntaDesarrollo();
+
+        totalPreguntas.add(p1);
+        totalPreguntas.add(p2);
+        totalPreguntas.add(p3);
+        totalPreguntas.add(p4);
+
+        return totalPreguntas;
+
+    }
+
+    private static PreguntaDesarrollo getPreguntaDesarrollo() {
         PreguntaDesarrollo p4 = new PreguntaDesarrollo();
         p4.setEnunciado("Desarrolla la etapa de Carlos II");
+        ArrayList<String> palabrasClave = new ArrayList<>();
 
-        muchasPregunta.add(p1);
-        muchasPregunta.add(p2);
-        muchasPregunta.add(p3);
-        muchasPregunta.add(p4);
+        // Núcleo imprescindible del tema
+        palabrasClave.add("Carlos II");
+        palabrasClave.add("Último Austria");
+        palabrasClave.add("Crisis del siglo XVII");
+        palabrasClave.add("Validos");
+        palabrasClave.add("Debilidad del poder real");
 
-        return muchasPregunta;
+        // Gobierno
+        palabrasClave.add("Regencia de Mariana de Austria");
+        palabrasClave.add("Juan José de Austria");
 
+        // Economía y sociedad
+        palabrasClave.add("Crisis económica");
+        palabrasClave.add("Hacienda en quiebra");
+        palabrasClave.add("Descenso demográfico");
+
+        // Política exterior
+        palabrasClave.add("Pérdida de hegemonía");
+        palabrasClave.add("Conflictos con Francia");
+
+        // Sucesión (clave de cierre)
+        palabrasClave.add("Problema sucesorio");
+        palabrasClave.add("Falta de descendencia");
+        palabrasClave.add("Felipe de Anjou");
+        palabrasClave.add("Guerra de Sucesión Española");
+        p4.setRespuestasCorrectas(palabrasClave);
+        return p4;
     }
 }

@@ -130,6 +130,7 @@ public class HelloApplication extends Application {
                 new Opcion("3"),
                 new Opcion("4,3")
         )));
+        p1.setRespuestaCorrecta("4");
 
         PreguntaOpcionMultiple p2 = new PreguntaOpcionMultiple();
         p2.setEnunciado("¿Cuando se descurbio la gravedad");
@@ -139,6 +140,7 @@ public class HelloApplication extends Application {
                 new Opcion("Nikola Tesla"),
                 new Opcion("Galileo Galilei")
         )));
+        p2.setRespuestaCorrecta("Isaac Newton");
 
         PreguntaOpcionMultiple p3 = new PreguntaOpcionMultiple();
         p3.setEnunciado("Cuando se descubrio america");
@@ -148,9 +150,10 @@ public class HelloApplication extends Application {
                 new Opcion("1429"),
                 new Opcion("2149")
         )));
+        p3.setRespuestaCorrecta("1492");
+
         PreguntaDesarrollo p4 = new PreguntaDesarrollo();
         p4.setEnunciado("Desarrolla la etapa de Carlos II");
-
 
         muchasPregunta.add(p1);
         muchasPregunta.add(p2);

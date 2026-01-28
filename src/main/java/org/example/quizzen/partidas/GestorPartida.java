@@ -5,6 +5,7 @@ import org.example.quizzen.preguntas.PreguntaDesarrollo;
 import org.example.quizzen.preguntas.PreguntaOpcionMultiple;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GestorPartida
@@ -19,20 +20,17 @@ public class GestorPartida
     public boolean comprobarRespuesta(String respuestaUsu)
     {
         Pregunta preguntaContestada = partida.getTest().getPreguntas().get(indicePregunta);
-        if ( preguntaContestada instanceof PreguntaDesarrollo)
+
+        if (preguntaContestada instanceof PreguntaDesarrollo pregDessContestada)
         {
-            PreguntaDesarrollo pregDessContestada= (PreguntaDesarrollo) preguntaContestada;
-
-
+            List<String> palabrasRespuesta= List.of(respuestaUsu.split(" "));
+            return pregDessContestada.getRespuestasCorrectas().stream().anyMatch(palabrasRespuesta::contains);
 
         }else
         {
             PreguntaOpcionMultiple pregOpcContestada= (PreguntaOpcionMultiple) preguntaContestada;
-
-
+            return pregOpcContestada.getRespuestaCorrecta().equalsIgnoreCase(respuestaUsu);
         }
-
-        return false;
     }
 
     //Si devuelve true ya ha mostrado todas las preguntas que contiene el test

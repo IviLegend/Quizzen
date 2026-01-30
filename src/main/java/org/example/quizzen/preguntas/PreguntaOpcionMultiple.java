@@ -33,13 +33,4 @@ public class PreguntaOpcionMultiple extends Pregunta
     public ArrayList<Opcion> getOpciones() {
         return opciones;
     }
-
-    public void setOpciones(ArrayList<Opcion> opciones) {
-        this.opciones = opciones;
-    }
-
-    public void setRespuestaCorrecta(String respuestaCorrecta)
-    {
-        this.respuestaCorrecta = respuestaCorrecta;
-    }
 }

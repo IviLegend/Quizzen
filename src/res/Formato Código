@@ -1,0 +1,34 @@
+
+VARIABLES
+Nombre de variables y funciones en Español
+
+Variables y funciones camelCase
+
+Clases en mayúscula
+
+Ñ -> ny
+
+Sin tildes
+
+JAVADOC
+Obligatoria descripción simple
+Obligatorios parámetros
+Obligatorio return
+Obligatorio autor
+
+Obligatorio @Deprecated si la función ya no se usa y señalizar la nueva función
+
+COMMITS
+Sin punto final
+Descripcion corta
+
+Cambiados botones de registro e inicio de sesión en el menú de login.
+
+Verbo en participio (-ado) y que se ha hecho
+
+Se debería hacer un commit por cada segmento funcional y por si se te ha acabado el tiempo para seguir luego.
+
+RAMAS
+La rama se llamará con el ID de Jira y una breve descripción de que es
+
+QUIZZEN-23 - Menu de Login

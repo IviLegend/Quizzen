@@ -1,6 +1,6 @@
 package org.example.quizzen.preguntas;
 
-public abstract class Pregunta
+public class Pregunta
 {
     private String enunciado;
 

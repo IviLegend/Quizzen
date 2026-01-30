@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 public class PreguntaDesarrollo extends Pregunta
 {
-    private String respuestaCorrecta;
-    private boolean ignoraCasing;
+    private ArrayList<String> respuestasCorrectas;
 
-    public PreguntaDesarrollo(String enunciado, String respuestaCorrecta, boolean ignoraCasing) {
-        super(enunciado);
-        this.respuestaCorrecta = respuestaCorrecta;
-        this.ignoraCasing = ignoraCasing;
+    public ArrayList<String> getRespuestasCorrectas()
+    {
+        return respuestasCorrectas;
+    }
+
+    public void setRespuestasCorrectas(ArrayList<String> respuestasCorrectas)
+    {
+        this.respuestasCorrectas = respuestasCorrectas;
     }
 }
+
+

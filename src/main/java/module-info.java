@@ -7,6 +7,7 @@ module org.example.quizzen {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires java.sql;
+    requires javafx.graphics;
 
     opens org.example.quizzen to javafx.fxml;
     exports org.example.quizzen;

@@ -10,12 +10,21 @@ public class PreguntaDesarrollo extends Pregunta
         return respuestasCorrectas;
     }
 
+    String respuestaUsuario;
     public void setRespuestasCorrectas(ArrayList<String> respuestasCorrectas) {
         this.respuestasCorrectas = respuestasCorrectas;
     }
 
     public PreguntaDesarrollo() {
         this.respuestasCorrectas = respuestasCorrectas;
+    }
+
+    public String getRespuestaUsuario() {
+        return respuestaUsuario;
+    }
+
+    public void setRespuestaUsuario(String respuestaUsuario) {
+        this.respuestaUsuario = respuestaUsuario;
     }
 
     public PreguntaDesarrollo(String enunciado ,String respuestaCorrectaUnica) {

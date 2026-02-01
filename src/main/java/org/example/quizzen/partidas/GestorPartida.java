@@ -1,5 +1,6 @@
 package org.example.quizzen.partidas;
 
+import org.example.quizzen.preguntas.Opcion;
 import org.example.quizzen.preguntas.Pregunta;
 import org.example.quizzen.preguntas.PreguntaDesarrollo;
 import org.example.quizzen.preguntas.PreguntaOpcionMultiple;
@@ -23,15 +24,34 @@ public class GestorPartida
     public ArrayList<Pregunta> listaPreguntas(int indicePregunta){
         Test test = listaTest.get(indicePregunta);
 
-        Pregunta pregunta = test.getPreguntas().get(indicePregunta);
+        ArrayList<Pregunta> listaDePreguntas = test.getPreguntas();
+        //Pregunta pregunta = test.getPreguntas().get(indicePregunta);
 
-        if (pregunta instanceof PreguntaDesarrollo){
-            PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-            preguntas.add(preguntaDesarrollo);
-        } else if (pregunta instanceof  PreguntaOpcionMultiple){
-            PreguntaOpcionMultiple preguntaOpcionMultiple = new PreguntaOpcionMultiple();
-            preguntas.add(preguntaOpcionMultiple);
+        for (int pos = 0; pos < listaDePreguntas.size(); pos++) {
+            //Pregunta pregunta = test.getPreguntas().get(indicePregunta);
+            Pregunta pregunta = listaDePreguntas.get(pos);
+            if (pregunta instanceof PreguntaDesarrollo){
+                PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
+                String enunciado = pregunta.getEnunciado();
+                preguntaDesarrollo.setEnunciado(enunciado);
+                preguntas.add(preguntaDesarrollo);
+            } else if (pregunta instanceof  PreguntaOpcionMultiple){
+                PreguntaOpcionMultiple preguntaOpcionMultiple = new PreguntaOpcionMultiple();
+                String enunciado = pregunta.getEnunciado();
+                preguntaOpcionMultiple.setEnunciado(enunciado);
+                ArrayList<Opcion> listaOpciones=((PreguntaOpcionMultiple) pregunta).getOpciones();
+                ArrayList<Opcion> opciones =new ArrayList<>();
+                for (int i = 0; i < listaOpciones.size(); i++) {
+                    Opcion opcion = listaOpciones.get(i);
+                    opciones.add(opcion);
+                    System.out.println(opcion);
+                    System.out.println("Opciones: "+listaOpciones);
+                }
+                preguntaOpcionMultiple.setOpciones(opciones);
+                preguntas.add(preguntaOpcionMultiple);
+            }
         }
+
         return preguntas;
     }
 

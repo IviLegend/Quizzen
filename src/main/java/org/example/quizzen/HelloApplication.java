@@ -45,9 +45,10 @@ public class HelloApplication extends Application {
         GestorPartida gestorPartida = new GestorPartida(listaTest);
 
         listaPreguntas = gestorPartida.listaPreguntas(0);
+        System.out.println("Lista de preguntas: "+listaPreguntas.size());
 
 
-        listaPreguntas= preguntasTest();
+        //listaPreguntas= preguntasTest();
 
         root = new BorderPane();
         Scene scene = new Scene(root, 800, 600);

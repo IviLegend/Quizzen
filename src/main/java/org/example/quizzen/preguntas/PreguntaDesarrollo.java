@@ -10,7 +10,7 @@ public class PreguntaDesarrollo extends Pregunta
         return respuestasCorrectas;
     }
 
-    String respuestaUsuario;
+    String respuestaUsuario= "";
     public void setRespuestasCorrectas(ArrayList<String> respuestasCorrectas) {
         this.respuestasCorrectas = respuestasCorrectas;
     }

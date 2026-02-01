@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.quizzen.partidas.GestorPartida;
 import org.example.quizzen.preguntas.*;
+import org.example.quizzen.test.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +39,12 @@ public class HelloApplication extends Application {
         stage.setFullScreenExitHint(""); // esto de abajo evita que aparezca el tipico mensaje de : si quieres salir de la pantalla completa pulsa esc
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); //esto evita que si se pulsa el boton esc se deja de estar en pantalla completa
         stage.setFullScreen(true);
+
+        ArrayList< Test> listaTest =GestorTest.importarTests();
+
+        GestorPartida gestorPartida = new GestorPartida(listaTest);
+
+        listaPreguntas = gestorPartida.listaPreguntas(0);
 
 
 

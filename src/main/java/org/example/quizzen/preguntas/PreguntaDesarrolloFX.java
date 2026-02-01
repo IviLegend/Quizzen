@@ -90,15 +90,15 @@ public class PreguntaDesarrolloFX {
 
 
         //VBox root = new VBox(cajaTitulo, contenedorOpciones, contenedorOpciones);
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-
-        stage.setFullScreen(true);
-        stage.setFullScreenExitHint("");
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setMaximized(true);
-
-        stage.show();
+//        Scene scene = new Scene(root, 800, 600);
+//        stage.setScene(scene);
+//
+//        stage.setFullScreen(true);
+//        stage.setFullScreenExitHint("");
+//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+//        stage.setMaximized(true);
+//
+//        stage.show();
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 

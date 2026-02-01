@@ -29,7 +29,7 @@ public class PreguntaDesarrolloFX {
         // Titulo:
         VBox cajaTitulo = cajaDelTitulo(preguntaDesarrollo);
         // caja principal de las opciones
-        VBox contenedorOpciones = cajaPrincipalDeLaRespuesta();
+        VBox contenedorOpciones = cajaPrincipalDeLaRespuesta(preguntaDesarrollo);
 
 
         // AÑADIR BOTONES
@@ -90,15 +90,15 @@ public class PreguntaDesarrolloFX {
 
 
         //VBox root = new VBox(cajaTitulo, contenedorOpciones, contenedorOpciones);
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
+//        Scene scene = new Scene(root, 800, 600);
+//        stage.setScene(scene);
 
-        stage.setFullScreen(true);
+        /*stage.setFullScreen(true);
         stage.setFullScreenExitHint("");
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setMaximized(true);
 
-        stage.show();
+        stage.show();*/
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
@@ -141,7 +141,7 @@ public class PreguntaDesarrolloFX {
         return cajaTitulo;
     }
 
-    private static VBox cajaPrincipalDeLaRespuesta() {
+    private static VBox cajaPrincipalDeLaRespuesta(PreguntaDesarrollo preguntaDesarrollo) {
         VBox contenedorPrincipal = new VBox(60);
         contenedorPrincipal.setAlignment(Pos.CENTER);
         VBox.setMargin(contenedorPrincipal, new Insets(5, 300, 10, 300)); //Separarlo de los margenes
@@ -174,6 +174,14 @@ public class PreguntaDesarrolloFX {
 
         // en vez de usar la clase Scanner, se usa la clase TextField ya que Scanner solo sirve para la consola.
         TextArea campoTexto = new TextArea();
+        //Recuperar la respuesta
+        campoTexto.setText(preguntaDesarrollo.getRespuestaUsuario());
+
+        //Para guardar la nueva respuesta
+        campoTexto.textProperty().addListener((obs, oldValue, newValue) -> {
+            preguntaDesarrollo.setRespuestaUsuario(newValue);
+        });
+
         campoTexto.setPromptText("Escribe escruba su respuesta");
         campoTexto.setWrapText(true); // para que el texto salte de línea
         campoTexto.setPrefHeight(150);

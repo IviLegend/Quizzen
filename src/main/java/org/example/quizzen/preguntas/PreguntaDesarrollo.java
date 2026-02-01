@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class PreguntaDesarrollo extends Pregunta
 {
     private ArrayList<String> respuestasCorrectas;
+    private String respuestaUsuario = "";
 
     public ArrayList<String> getRespuestasCorrectas()
     {
@@ -14,6 +15,14 @@ public class PreguntaDesarrollo extends Pregunta
     public void setRespuestasCorrectas(ArrayList<String> respuestasCorrectas)
     {
         this.respuestasCorrectas = respuestasCorrectas;
+    }
+
+    public String getRespuestaUsuario() {
+        return respuestaUsuario;
+    }
+
+    public void setRespuestaUsuario(String respuestaUsuario) {
+        this.respuestaUsuario = respuestaUsuario;
     }
 }
 

@@ -47,16 +47,6 @@ public class HelloApplication extends Application {
         listaPreguntas = gestorPartida.listaPreguntas(0);
 
 
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-//
-//        System.out.println("Ivan");
-//        System.out.println("Alvaro");
-
         listaPreguntas= preguntasTest();
 
         root = new BorderPane();

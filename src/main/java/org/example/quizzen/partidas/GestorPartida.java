@@ -13,7 +13,7 @@ public class GestorPartida
 {
     private Partida partida;
     private int indicePregunta;
-    ArrayList<Pregunta> preguntas /*= partida.getTest().getPreguntas()*/;
+    ArrayList<Pregunta> preguntas = new ArrayList<>()/*= partida.getTest().getPreguntas()*/;
     ArrayList<Test> listaTest;
 
     public GestorPartida(ArrayList<Test> Test) {

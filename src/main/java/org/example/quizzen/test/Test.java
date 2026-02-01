@@ -15,6 +15,7 @@ public class Test
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.preguntas = preguntas;
     }
     public String getNombre()
     {

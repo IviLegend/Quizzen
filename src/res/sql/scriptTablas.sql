@@ -1,4 +1,4 @@
-DROP SCHEMA Quizzen;
+drop schema Quizzen;
 create schema if not exists Quizzen;
 use Quizzen;
 CREATE TABLE IF NOT EXISTS Usuario (
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Opcion (
     es_correcto BOOLEAN,
     FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
 );
- 
+
 CREATE TABLE IF NOT EXISTS Pregunta_Opcion_Multiple (
     id_pregunta INT,
     FOREIGN KEY (id_pregunta) REFERENCES Pregunta(id_pregunta)
@@ -100,17 +100,18 @@ INSERT INTO Resultado VALUES ('A,B,C,D', 1);
 -- Pregunta
 INSERT INTO Pregunta VALUES (1, '¿Qué es una ecuación?', 1, 1);
 INSERT INTO Pregunta VALUES (2, 'Elige la opción correcta', 1, 2);
-/*
-	id_pregunta INT PRIMARY KEY,
-    enunciado VARCHAR(80),
-    Test_id_test INT,
-    tipoPregunta INT,
-    FOREIGN KEY (Test_id_test) REFERENCES Test(id_test)
-*/
+INSERT INTO Pregunta VALUES (3, '¿Qué representa la "x" en una ecuación?', 1, 1);
+INSERT INTO Pregunta VALUES (4, '¿Cuál es el valor de "x" en x-3(x-2)=6x-2?', 1, 2);
+INSERT INTO Pregunta VALUES (5, '¿Cuál es el valor de "x" en 2(3x-49)=-x+14?', 1, 2);
+INSERT INTO Pregunta VALUES (6, 'Escribe el valor de "x" en la ecuación: 10x-15=4x+27', 1, 1);
+INSERT INTO Pregunta VALUES (7, 'Escribe el valor de "x" en la ecuación: 47-3x=5+11x', 1, 1);
 
 -- Pregunta_Desarrollo
 INSERT INTO Pregunta_Desarrollo VALUES ('Una igualdad con incógnitas', 1);
 INSERT INTO Pregunta_Desarrollo VALUES ('Líder revolucionario francés', 2);
+INSERT INTO Pregunta_Desarrollo VALUES ('Representa la incógnita o el valor desconocido que se desea calcular', 3);
+INSERT INTO Pregunta_Desarrollo VALUES ('7', 6);
+INSERT INTO Pregunta_Desarrollo VALUES ('3', 7);
 
 -- Opcion
 INSERT INTO Opcion VALUES (2, '2 + 2 = 4', true);
@@ -118,8 +119,20 @@ INSERT INTO Opcion VALUES (2, '2 + 2 = 5', false);
 INSERT INTO Opcion VALUES (2, '2 + 2 = 22', false);
 INSERT INTO Opcion VALUES (2, '2 + 2 = 9', false);
 
+INSERT INTO Opcion VALUES (4, '7', false);
+INSERT INTO Opcion VALUES (4, '1', true);
+INSERT INTO Opcion VALUES (4, '4', false);
+INSERT INTO Opcion VALUES (4, '6', false);
+
+INSERT INTO Opcion VALUES (5, '11', false);
+INSERT INTO Opcion VALUES (5, '24', false);
+INSERT INTO Opcion VALUES (5, '10', false);
+INSERT INTO Opcion VALUES (5, '16', true);
+
 -- Pregunta_Opcion_Multiple
 INSERT INTO Pregunta_Opcion_Multiple VALUES (2);
+INSERT INTO Pregunta_Opcion_Multiple VALUES (4);
+INSERT INTO Pregunta_Opcion_Multiple VALUES (5);
 -- INSERT INTO Pregunta_Opcion_Multiple VALUES (2);
 
 SELECT * FROM Pregunta WHERE Test_id_test LIKE 2;

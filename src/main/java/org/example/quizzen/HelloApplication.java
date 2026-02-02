@@ -54,14 +54,40 @@ public class HelloApplication extends Application {
 
         //listaPreguntas= preguntasTest();
 
+//        root = new BorderPane();
+//        Scene scene = new Scene(root, 800, 600);
+//        stage.setScene(scene);
+//        stage.show();
+//
+//
+//        mostrarPregunta(stage);
+
         root = new BorderPane();
+        root.setStyle("-fx-background-color: #0f172a;");
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
 
+        //Hacer un boton para ir a hacer las preguntas.
+        Button btonPreguntas = new Button("Hacer Test");
+        btonPreguntas.setPrefWidth(500);
+        btonPreguntas.setPrefHeight(500);
 
-        mostrarPregunta(stage);
+        String estiloBoton =
+                "-fx-background-color: linear-gradient(to bottom right, #d8b4fe, #7c3aed);" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 10 30 10 30;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 40px;";
 
+        btonPreguntas.setStyle(estiloBoton);
+
+
+        cambiarTamanyoBoton(btonPreguntas,1.25,1.0);
+
+        btonPreguntas.setOnMouseClicked(e -> mostrarPregunta(stage));
+        root.setCenter(btonPreguntas);
 
 
 

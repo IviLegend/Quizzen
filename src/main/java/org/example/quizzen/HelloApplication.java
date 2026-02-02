@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.example.quizzen.partidas.GestorPartida;
 import org.example.quizzen.preguntas.*;
+import org.example.quizzen.test.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,18 +40,15 @@ public class HelloApplication extends Application {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); //esto evita que si se pulsa el boton esc se deja de estar en pantalla completa
         stage.setFullScreen(true);
 
+        ArrayList< Test> listaTest =GestorTest.importarTests();
+
+        GestorPartida gestorPartida = new GestorPartida(listaTest);
+
+        listaPreguntas = gestorPartida.listaPreguntas(0);
+        System.out.println("Lista de preguntas: "+listaPreguntas.size());
 
 
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
-//
-//        System.out.println("Ivan");
-//        System.out.println("Alvaro");
-
-        listaPreguntas= preguntasTest();
+        //listaPreguntas= preguntasTest();
 
         root = new BorderPane();
         Scene scene = new Scene(root, 800, 600);

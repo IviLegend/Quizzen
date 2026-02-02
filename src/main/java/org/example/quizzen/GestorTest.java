@@ -55,7 +55,7 @@ public class GestorTest {
                         ResultSet rsPreguntasDesarrollo = stPreguntasDesarrollo.executeQuery(sqlPreguntasDesarrollo);
                         while (rsPreguntasDesarrollo.next()) {
                             String respuestaCorrecta = rsPreguntasDesarrollo.getString("respuesta");
-                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta, true);
+                            PreguntaDesarrollo pregunta = new PreguntaDesarrollo(enunciado, respuestaCorrecta);
                             preguntas.add(pregunta);
                             System.out.println(" * " + enunciado + ": " + respuestaCorrecta);
                         }

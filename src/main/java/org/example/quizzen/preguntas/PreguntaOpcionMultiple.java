@@ -6,6 +6,7 @@ public class PreguntaOpcionMultiple extends Pregunta
 {
     private ArrayList<Opcion> opciones;
 
+
     private Integer respuestaSeleccionada = null; // 0=A, 1=B, 2=C, 3=D
 
     private String respuestaCorrecta;
@@ -14,6 +15,11 @@ public class PreguntaOpcionMultiple extends Pregunta
     {
         //super();
         this.opciones = new ArrayList<>();
+    }
+    public PreguntaOpcionMultiple(String enunciado, ArrayList<Opcion> opciones){
+        this.setEnunciado(enunciado);
+        this.opciones = opciones;
+
     }
 
     public String getRespuestaCorrecta()
@@ -31,6 +37,15 @@ public class PreguntaOpcionMultiple extends Pregunta
     }
 
     public ArrayList<Opcion> getOpciones() {
+
         return opciones;
+    }
+
+    public void setOpciones(ArrayList<Opcion> opciones) {
+        this.opciones = opciones;
+    }
+
+    public void setRespuestaCorrecta(String respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 }

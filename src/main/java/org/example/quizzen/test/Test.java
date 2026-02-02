@@ -15,6 +15,8 @@ public class Test
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.preguntas = preguntas;
+    }
     public String getNombre()
     {
         return nombre;
@@ -35,12 +37,12 @@ public class Test
         this.descripcion = descripcion;
     }
 
-    public Categoria getCategoria()
+    public String getCategoria()
     {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria)
+    public void setCategoria(String categoria)
     {
         this.categoria = categoria;
     }

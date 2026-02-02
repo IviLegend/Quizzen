@@ -1,11 +1,15 @@
 package org.example.quizzen;
 
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.quizzen.partidas.GestorPartida;
 import org.example.quizzen.preguntas.*;
 import org.example.quizzen.test.Test;
@@ -111,6 +115,23 @@ public class HelloApplication extends Application {
         }
 
 
+    }
+
+    private static void cambiarTamanyoBoton(Button unBotonCualquiera, double tamanyoGrande, double tamanyoNormal) {
+        ScaleTransition hacerBotonGrande = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
+        hacerBotonGrande.setToX(tamanyoGrande);
+        hacerBotonGrande.setToY(tamanyoGrande);
+        hacerBotonGrande.setInterpolator(Interpolator.EASE_OUT);
+
+        ScaleTransition botonTamanyoNormal = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
+        botonTamanyoNormal.setToX(tamanyoNormal);
+        botonTamanyoNormal.setToY(tamanyoNormal);
+        botonTamanyoNormal.setInterpolator(Interpolator.EASE_BOTH);
+
+        unBotonCualquiera.setOnMouseEntered(e ->
+                hacerBotonGrande.playFromStart());
+        unBotonCualquiera.setOnMouseExited(e ->
+                botonTamanyoNormal.playFromStart());
     }
 
     public void siguientePregunta (Stage stage){

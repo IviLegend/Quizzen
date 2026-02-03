@@ -3,11 +3,13 @@ package org.example.quizzen;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.quizzen.partidas.GestorPartida;
@@ -61,11 +63,11 @@ public class HelloApplication extends Application {
         stage.show();
 
         //Hacer un boton para ir a hacer las preguntas.
-        Button btonPreguntas = new Button("Hacer Test");
+        Button btonPreguntas = new Button("Cursar Test");
         btonPreguntas.setPrefWidth(500);
         btonPreguntas.setPrefHeight(500);
 
-        String estiloBoton =
+        String estiloBotonMorado =
                 "-fx-background-color: linear-gradient(to bottom right, #d8b4fe, #7c3aed);" +
                         "-fx-background-radius: 10;" +
                         "-fx-padding: 10 30 10 30;" +
@@ -73,13 +75,39 @@ public class HelloApplication extends Application {
                         "-fx-font-weight: bold;" +
                         "-fx-font-size: 40px;";
 
-        btonPreguntas.setStyle(estiloBoton);
+        String estiloBotonVerde =
+                "-fx-background-color: linear-gradient(to bottom right, #a7f3d0, #059669);" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 10 30 10 30;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 40px";
+
+        String estiloBotonRojo =
+                "-fx-background-color: linear-gradient(to bottom right, #ff7f7f, #b30000);" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 10 30 10 30;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 40px;";
+
+        btonPreguntas.setStyle(estiloBotonVerde);
+        Button botonCrear = new Button("Crear Test");
+        botonCrear.setPrefWidth(500);
+        botonCrear.setPrefHeight(500);
+        botonCrear.setStyle(estiloBotonRojo);
 
 
         cambiarTamanyoBoton(btonPreguntas,1.25,1.0);
+        cambiarTamanyoBoton(botonCrear,1.25,1.0);
 
         btonPreguntas.setOnMouseClicked(e -> mostrarPregunta(stage));
-        root.setCenter(btonPreguntas);
+
+        HBox contenedor = new HBox(100); // separación entre botones
+        contenedor.setAlignment(Pos.CENTER);
+        contenedor.getChildren().addAll(btonPreguntas, botonCrear);
+
+        root.setCenter(contenedor);
 
 //        root = new BorderPane();
 //        Scene scene = new Scene(root, 800, 600);

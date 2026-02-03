@@ -6,85 +6,85 @@ import org.example.quizzen.preguntas.PreguntaDesarrollo;
 import org.example.quizzen.preguntas.PreguntaOpcionMultiple;
 import org.example.quizzen.test.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class GestorPartida
-{
+public class GestorPartida {
+
     private Partida partida;
-    private int indicePregunta;
-    ArrayList<Pregunta> preguntas = new ArrayList<>()/*= partida.getTest().getPreguntas()*/;
-    ArrayList<Test> listaTest;
+    private int indicePregunta = 0;
+    private ArrayList<Pregunta> preguntas = new ArrayList<>();
 
-    public GestorPartida(ArrayList<Test> Test) {
-        this.listaTest = Test;
+    public GestorPartida(ArrayList<Test> listaTest) {
+        this.partida = new Partida();
+        this.partida.setTest(listaTest.get(0)); // usamos el primer test
+        this.partida.setResultados(new Resultados());
+
+        // Mezclamos las preguntas para que salgan aleatorias
+        this.preguntas = new ArrayList<>(partida.getTest().getPreguntas());
+        Collections.shuffle(this.preguntas);
     }
 
-    public ArrayList<Pregunta> listaPreguntas(int indicePregunta){
-        Test test = listaTest.get(indicePregunta);
+    public Pregunta getPreguntaActual() {
+        return preguntas.get(indicePregunta);
+    }
 
-        ArrayList<Pregunta> listaDePreguntas = test.getPreguntas();
-        //Pregunta pregunta = test.getPreguntas().get(indicePregunta);
+    public void siguientePregunta() {
+        if (indicePregunta < preguntas.size() - 1) {
+            indicePregunta++;
+        }
+    }
 
-        for (int pos = 0; pos < listaDePreguntas.size(); pos++) {
-            //Pregunta pregunta = test.getPreguntas().get(indicePregunta);
-            Pregunta pregunta = listaDePreguntas.get(pos);
-            if (pregunta instanceof PreguntaDesarrollo){
-                PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-                String enunciado = pregunta.getEnunciado();
-                preguntaDesarrollo.setEnunciado(enunciado);
-                preguntas.add(preguntaDesarrollo);
-            } else if (pregunta instanceof  PreguntaOpcionMultiple){
-                PreguntaOpcionMultiple preguntaOpcionMultiple = new PreguntaOpcionMultiple();
-                String enunciado = pregunta.getEnunciado();
-                preguntaOpcionMultiple.setEnunciado(enunciado);
-                ArrayList<Opcion> listaOpciones=((PreguntaOpcionMultiple) pregunta).getOpciones();
-                ArrayList<Opcion> opciones =new ArrayList<>();
-                for (int i = 0; i < listaOpciones.size(); i++) {
-                    Opcion opcion = listaOpciones.get(i);
-                    opciones.add(opcion);
-                    System.out.println(opcion);
-                    System.out.println("Opciones: "+listaOpciones);
-                }
-                preguntaOpcionMultiple.setOpciones(opciones);
-                preguntas.add(preguntaOpcionMultiple);
+    public void anteriorPregunta() {
+        if (indicePregunta > 0) {
+            indicePregunta--;
+        }
+    }
+
+    public boolean comprobarRespuestaActual(String respuestaUsu) {
+        Pregunta pregunta = getPreguntaActual();
+
+        if (pregunta instanceof PreguntaDesarrollo pregDess) {
+            List<String> palabras = List.of(respuestaUsu.toLowerCase().split(" "));
+
+            boolean correcta = pregDess.getRespuestasCorrectas()
+                    .stream()
+                    .map(String::toLowerCase)
+                    .anyMatch(palabras::contains);
+
+            if (!correcta) {
+                partida.getResultados().anyadirRespuestaFallada(pregDess, respuestaUsu);
             }
+
+            return correcta;
+
+        } else if (pregunta instanceof PreguntaOpcionMultiple pregOpc) {
+            boolean correcta = pregOpc.getRespuestaCorrecta()
+                    .equalsIgnoreCase(respuestaUsu);
+
+            // Marcamos las opciones correctas/incorrectas
+            for (Opcion op : pregOpc.getOpciones()) {
+                op.setEsCorrecta(op.getSentencia().equalsIgnoreCase(pregOpc.getRespuestaCorrecta()));
+            }
+
+            if (!correcta) {
+                partida.getResultados().anyadirRespuestaFallada(pregOpc, respuestaUsu);
+            }
+
+            return correcta;
         }
 
-        return preguntas;
+        return false;
     }
 
-    public boolean comprobarRespuesta(String respuestaUsu) {
-
-        Pregunta preguntaContestada = partida.getTest().getPreguntas().get(indicePregunta);
-
-        if (preguntaContestada instanceof PreguntaDesarrollo pregDessContestada)
-        {
-            List<String> palabrasRespuesta= List.of(respuestaUsu.split(" "));
-            return pregDessContestada.getRespuestasCorrectas().stream().anyMatch(palabrasRespuesta::contains);
-
-        }else
-        {
-            PreguntaOpcionMultiple pregOpcContestada= (PreguntaOpcionMultiple) preguntaContestada;
-            return pregOpcContestada.getRespuestaCorrecta().equalsIgnoreCase(respuestaUsu);
-        }
+    public boolean finalizarPartida() {
+        return indicePregunta >= preguntas.size() - 1;
     }
 
-    //Si devuelve true ya ha mostrado todas las preguntas que contiene el test
-    public boolean finalizarPartida()
-    {
-        return indicePregunta >= partida.getTest().getPreguntas().size();
+    public Resultados getResultados() {
+        return partida.getResultados();
     }
 
-    //Solo funcionara la función cuando la partida este acabada, para evitar errores
-    public void mostrarPregFalladas()
-    {
-        if (finalizarPartida())
-        {
-            Map<Pregunta,String> totalPregFalladas= partida.getResultados().getRespuestas();
-            //todo mostrar contenido en la interfaz
-        }
+    public Test getTest() {
+        return partida.getTest();
     }
-
 }

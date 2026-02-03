@@ -79,28 +79,6 @@ public class PreguntaOpcionMultipleFX {
         btonAtras.setStyle(estiloBoton);
         btonSiguiente.setStyle(estiloBoton);
 
-        //efecto de agrandar cuando el cursor esta encima
-//        btonAtras.setOnMouseEntered(e -> {
-//            btonAtras.setScaleX(1.2);
-//            btonAtras.setScaleY(1.2);
-//        });
-//
-//        btonAtras.setOnMouseExited(e -> {
-//            btonAtras.setScaleX(1.0);
-//            btonAtras.setScaleY(1.0);
-//        });
-//
-//        btonSiguiente.setOnMouseEntered(e ->{
-//            btonSiguiente.setScaleX(1.2);
-//            btonSiguiente.setScaleY(1.2);
-//        });
-//
-//        btonSiguiente.setOnMouseExited(e ->{
-//            btonSiguiente.setScaleX(1.0);
-//            btonSiguiente.setScaleY(1.0);
-//        });
-        //animación de tipo gelatina
-
         cambiarTamanyoBoton(btonAtras,1.25,1.0);
 
         cambiarTamanyoBoton(btonSiguiente,1.25,1.0);
@@ -123,14 +101,6 @@ public class PreguntaOpcionMultipleFX {
         //root.getChildren().add(cajaTitulo); //añadir la propia caja
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
-
-        //esto de abajo esta comentado porque genera un molesto parpadeo ya que se esta creado nuevas escenas.
-//        Scene scene = new Scene(root,600,400);
-//        stage.setScene(scene);
-//        stage.setTitle("PreguntaOpcionMultiple");
-//        stage.show();
-
-        //stage.setFullScreen(true); // para la pantalla completa.
 
         return root;
     }
@@ -186,15 +156,6 @@ public class PreguntaOpcionMultipleFX {
         glow.setColor(Color.WHITE);
         glow.setRadius(40); // radio del efecto
         glow.setSpread(0.3);
-
-
-//        String estiloBotonABCD = "-fx-background-color: #ffff99;" +
-//                "-fx-border-color: #cccc00;" +
-//                "-fx-border-width: 3px;" + // grosor de la linea
-//                "-fx-background-radius: 50px;" + // pronunciacion de la curva
-//                "-fx-border-radius: 50px;" + // pronunciacion de la curva
-//                "-fx-font-weight: bold;" +
-//                "-fx-font-size: 50px;"; // tamaño de la letra
 
 
         for (char caracter = 'A'; caracter <= 'D'; caracter++){
@@ -431,15 +392,14 @@ public class PreguntaOpcionMultipleFX {
      *  */
 
     private void aplicarEfectoOndas(Button boton, VBox columnaOpciones, char letra, PreguntaOpcionMultiple pregunta){
-        boton.setOnMouseClicked( e ->{
+        boton.setOnMouseClicked(e -> {
 
-            Circle onda = new Circle(0, Color.rgb(255,255,255,0.4)); // color blanco semitransparente
+            // Animación de onda
+            Circle onda = new Circle(0, Color.rgb(255,255,255,0.4));
             onda.setCenterX(e.getX());
             onda.setCenterY(e.getY());
-
             StackPane parent = (StackPane) boton.getParent();
             parent.getChildren().add(onda);
-
             Timeline animacion = new Timeline(
                     new KeyFrame(Duration.ZERO,
                             new KeyValue(onda.radiusProperty(), 0),
@@ -448,54 +408,67 @@ public class PreguntaOpcionMultipleFX {
                             new KeyValue(onda.radiusProperty(), 100),
                             new KeyValue(onda.opacityProperty(), 0))
             );
-
             animacion.setOnFinished(ev -> parent.getChildren().remove(onda));
             animacion.play();
 
-            int index = letra - 'A'; // A=0, B=1, C=2, D=3
-
+            int index = letra - 'A';
             pregunta.setRespuestaSeleccionada(index);
 
+            // Comprobamos si la opción elegida es correcta
+            boolean correcta = pregunta.getOpciones().get(index).isEsCorrecta();
 
-            for (Node nodo: columnaOpciones.getChildren()){
-                if (nodo instanceof HBox filaOpcion){
-                    filaOpcion.setStyle("-fx-background-color: #ffffff;" +
-                            "-fx-border-color: #999999;" +
-                            "-fx-border-width: 2px;" +
-                            "-fx-border-radius: 8px;" +
-                            "-fx-background-radius: 8px;");
-                    for (Node sub: filaOpcion.getChildren()){
-                        sub.setStyle("-fx-background-color: #ffffff;" +
-                                "-fx-border-color: #999999;" +
-                                "-fx-border-width: 2px;" +
-                                "-fx-border-radius: 8px;" +
-                                "-fx-background-radius: 8px;");
+            for (int i = 0; i < columnaOpciones.getChildren().size(); i++) {
+                HBox fila = (HBox) columnaOpciones.getChildren().get(i);
+                Opcion op = pregunta.getOpciones().get(i);
+
+                for (Node sub : fila.getChildren()) {
+                    if (sub instanceof StackPane) {
+                        // Si acertó → solo verde la opción correcta
+                        // Si falló → roja la seleccionada y verde la correcta
+                        if (correcta) {
+                            if (op.isEsCorrecta()) {
+                                sub.setStyle("-fx-background-color: #22c55e;" + // verde
+                                        "-fx-border-color: #15803d;" +
+                                        "-fx-border-width: 2px;" +
+                                        "-fx-border-radius: 8px;" +
+                                        "-fx-background-radius: 8px;");
+                            } else {
+                                sub.setStyle("-fx-background-color: #ffffff;" + // resto sin color
+                                        "-fx-border-color: #999999;" +
+                                        "-fx-border-width: 2px;" +
+                                        "-fx-border-radius: 8px;" +
+                                        "-fx-background-radius: 8px;");
+                            }
+                        } else {
+                            if (i == index) { // opción seleccionada → rojo
+                                sub.setStyle("-fx-background-color: #ff4d4d;" +
+                                        "-fx-border-color: #b30000;" +
+                                        "-fx-border-width: 2px;" +
+                                        "-fx-border-radius: 8px;" +
+                                        "-fx-background-radius: 8px;");
+                            } else if (op.isEsCorrecta()) { // opción correcta → verde
+                                sub.setStyle("-fx-background-color: #22c55e;" +
+                                        "-fx-border-color: #15803d;" +
+                                        "-fx-border-width: 2px;" +
+                                        "-fx-border-radius: 8px;" +
+                                        "-fx-background-radius: 8px;");
+                            } else { // resto → sin color
+                                sub.setStyle("-fx-background-color: #ffffff;" +
+                                        "-fx-border-color: #999999;" +
+                                        "-fx-border-width: 2px;" +
+                                        "-fx-border-radius: 8px;" +
+                                        "-fx-background-radius: 8px;");
+                            }
+                        }
                     }
                 }
             }
 
-
-
-            HBox fila = (HBox) columnaOpciones.getChildren().get(index);
-
-            // colorear la fila completa
-//            fila.setStyle( "-fx-background-color: #ccffcc;" +
-//                    "-fx-border-color: #66cc66;" +
-//                    "-fx-border-width: 2px;" +
-//                    "-fx-border-radius: 8px;" +
-//                    "-fx-background-radius: 8px;" );
-            // colorear subcajas
-
-            for (Node sub : fila.getChildren()) {
-                if (sub instanceof StackPane) {
-                    sub.setStyle( "-fx-background-color: #ccffcc;" +
-                            "-fx-border-color: #66cc66;" +
-                            "-fx-border-width: 2px;" +
-                            "-fx-border-radius: 8px;" +
-                            "-fx-background-radius: 8px;");
-                }
+            // Guardar en resultados inmediatamente si falló
+            if (!correcta) {
+                pregunta.getOpciones().get(index).setEsCorrecta(false);
             }
-
         });
     }
+
 }

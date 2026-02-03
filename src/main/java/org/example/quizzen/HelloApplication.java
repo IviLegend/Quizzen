@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -16,59 +17,37 @@ import org.example.quizzen.test.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-//Organizacion de tareas JUGABILIDAD DE UN TEST ALMACENAMIENTO BBDD Y VISUALIZACIÓN EN FX
-//todo generar un test el cual se sube a la BBDD
-//todo obtener la lista de tests de la BBDD
-//todo obtener el test deseado para jugar
-//todo arrancar partida con ese test
-//todo jugar la partida, mostrando las preguntas de forma random
-//todo comprobar la seleccion del jugador, si se falla se vera rojo y si se acierta verde
-//OPCIONAL: almacenando las respuestas falladas para usarlas en un futuro (si da tiempo)
-//todo finalizar test cuando se haya
-//OPCIONAL: mostrar los tets fallados del usuario
-//OPCIONAL: FIN
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class HelloApplication extends Application {
 
-    private BorderPane root; // contenedor principal
+    private BorderPane root;
     private ArrayList<Pregunta> listaPreguntas;
     private int indiceActual = 0;
+    private GestorPartida gestorPartida;
 
     @Override
     public void start(Stage stage) throws IOException {
 
-
-        stage.setFullScreenExitHint(""); // esto de abajo evita que aparezca el tipico mensaje de : si quieres salir de la pantalla completa pulsa esc
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); //esto evita que si se pulsa el boton esc se deja de estar en pantalla completa
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setFullScreen(true);
 
-        ArrayList< Test> listaTest =GestorTest.importarTests();
-
-        GestorPartida gestorPartida = new GestorPartida(listaTest);
-
-        listaPreguntas = gestorPartida.listaPreguntas(0);
-        System.out.println("Lista de preguntas: "+listaPreguntas.size());
-
-
-        //listaPreguntas= preguntasTest();
-
-//        root = new BorderPane();
-//        Scene scene = new Scene(root, 800, 600);
-//        stage.setScene(scene);
-//        stage.show();
-//
-//
-//        mostrarPregunta(stage);
+        ArrayList<Test> listaTest = GestorTest.importarTests();
+        gestorPartida = new GestorPartida(listaTest);
+        listaPreguntas = gestorPartida.getTest().getPreguntas();
 
         root = new BorderPane();
         root.setStyle("-fx-background-color: #0f172a;");
+
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
         stage.show();
 
-        //Hacer un boton para ir a hacer las preguntas.
         Button btonPreguntas = new Button("Hacer Test");
         btonPreguntas.setPrefWidth(500);
         btonPreguntas.setPrefHeight(500);
@@ -82,177 +61,142 @@ public class HelloApplication extends Application {
                         "-fx-font-size: 40px;";
 
         btonPreguntas.setStyle(estiloBoton);
-
-
-        cambiarTamanyoBoton(btonPreguntas,1.25,1.0);
+        cambiarTamanyoBoton(btonPreguntas, 1.25, 1.0);
 
         btonPreguntas.setOnMouseClicked(e -> mostrarPregunta(stage));
         root.setCenter(btonPreguntas);
-
-
-
-//        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-//        preguntaDesarrollo.setEnunciado("Que es Odoo");
-//
-//        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
-
-//        for (Pregunta pregunta:listaPreguntas) {
-//            if (pregunta instanceof PreguntaOpcionMultiple){
-//
-//                PreguntaOpcionMultiple preguntaOpcionMultiple = (PreguntaOpcionMultiple) pregunta;
-//                new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple, this);
-//
-//
-//            }
-//        }
-
-//        PreguntaOpcionMultiple preguntaOpcionMultiplePrueba = new PreguntaOpcionMultiple();
-//        preguntaOpcionMultiplePrueba.setEnunciado("¿Cuanto es 2 + 2?");
-//        preguntaOpcionMultiplePrueba.setOpciones( new ArrayList<>(List.of(
-//                new Opcion("4"),
-//                new Opcion("5"),
-//                new Opcion("3"),
-//                new Opcion("4,3")
-//        )));
-//
-//       new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiplePrueba);
-//
-//        PreguntaDesarrollo preguntaDesarrollo = new PreguntaDesarrollo();
-//        preguntaDesarrollo.setEnunciado("Defineme el modelo del absolutismo de Fernando IV y por que no tubo tanta repercusión con su hija Isabel II");
-//
-//        new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo);
-
-
     }
 
     private static void cambiarTamanyoBoton(Button unBotonCualquiera, double tamanyoGrande, double tamanyoNormal) {
         ScaleTransition hacerBotonGrande = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
         hacerBotonGrande.setToX(tamanyoGrande);
         hacerBotonGrande.setToY(tamanyoGrande);
-        hacerBotonGrande.setInterpolator(Interpolator.EASE_OUT);
 
         ScaleTransition botonTamanyoNormal = new ScaleTransition(Duration.millis(200), unBotonCualquiera);
         botonTamanyoNormal.setToX(tamanyoNormal);
         botonTamanyoNormal.setToY(tamanyoNormal);
-        botonTamanyoNormal.setInterpolator(Interpolator.EASE_BOTH);
 
-        unBotonCualquiera.setOnMouseEntered(e ->
-                hacerBotonGrande.playFromStart());
-        unBotonCualquiera.setOnMouseExited(e ->
-                botonTamanyoNormal.playFromStart());
+        unBotonCualquiera.setOnMouseEntered(e -> hacerBotonGrande.playFromStart());
+        unBotonCualquiera.setOnMouseExited(e -> botonTamanyoNormal.playFromStart());
     }
 
-
-    private void mostrarPregunta(Stage stage){
-
+    private void mostrarPregunta(Stage stage) {
         Pregunta pregunta = listaPreguntas.get(indiceActual);
 
-        //stage.setFullScreen(true); // fuerza pantalla completa SIEMPRE
-
-        if (pregunta instanceof PreguntaOpcionMultiple preguntaOpcionMultiple){
-            Node vista = new PreguntaOpcionMultipleFX().mostrar(stage, preguntaOpcionMultiple, this);
-            root.setCenter(vista); //esto hace que solo cambi el contenido, no la escena.
-            //new PreguntaOpcionMultipleFX().mostrar(stage,preguntaOpcionMultiple,this);
-        } else if (pregunta instanceof PreguntaDesarrollo preguntaDesarrollo){
-            Node vista = new PreguntaDesarrolloFX().mostrar(stage,preguntaDesarrollo, this);
+        if (pregunta instanceof PreguntaOpcionMultiple p) {
+            Node vista = new PreguntaOpcionMultipleFX().mostrar(stage, p, this);
+            root.setCenter(vista);
+        } else if (pregunta instanceof PreguntaDesarrollo p) {
+            Node vista = new PreguntaDesarrolloFX().mostrar(stage, p, this);
             root.setCenter(vista);
         }
-
-
     }
 
-    public void siguientePregunta (Stage stage){
-
+    public void siguientePregunta(Stage stage) {
         if (indiceActual < listaPreguntas.size() - 1) {
             indiceActual++;
             mostrarPregunta(stage);
+        } else {
+            mostrarPantallaFinal(stage);
         }
-
     }
 
-    public void preguntaAnterior(Stage stage){
+    public void preguntaAnterior(Stage stage) {
         if (indiceActual > 0) {
             indiceActual--;
             mostrarPregunta(stage);
         }
-
-    }
-    private static ArrayList<Pregunta> preguntasTest(){
-
-        ArrayList<Pregunta> totalPreguntas = new ArrayList<>();
-
-        PreguntaOpcionMultiple p1 = new PreguntaOpcionMultiple();
-        p1.setEnunciado("¿Cuánto es 2 + 2?");
-        p1.setOpciones( new ArrayList<>(List.of(
-                new Opcion("4"),
-                new Opcion("5"),
-                new Opcion("3"),
-                new Opcion("4,3")
-        )));
-        p1.setRespuestaCorrecta("4");
-
-        PreguntaOpcionMultiple p2 = new PreguntaOpcionMultiple();
-        p2.setEnunciado("¿Quién formuló la teoría la gravedad?");
-        p2.setOpciones( new ArrayList<>(List.of(
-                new Opcion("Isaac Newton"),
-                new Opcion("Albert Einstein"),
-                new Opcion("Nikola Tesla"),
-                new Opcion("Galileo Galilei")
-        )));
-        p2.setRespuestaCorrecta("Isaac Newton");
-
-        PreguntaOpcionMultiple p3 = new PreguntaOpcionMultiple();
-        p3.setEnunciado("¿Cuándo se descubrió América?");
-        p3.setOpciones( new ArrayList<>(List.of(
-                new Opcion("1942"),
-                new Opcion("1492"),
-                new Opcion("1429"),
-                new Opcion("2149")
-        )));
-        p3.setRespuestaCorrecta("1492");
-
-        PreguntaDesarrollo p4 = getPreguntaDesarrollo();
-
-        totalPreguntas.add(p1);
-        totalPreguntas.add(p2);
-        totalPreguntas.add(p3);
-        totalPreguntas.add(p4);
-
-        return totalPreguntas;
-
     }
 
-    private static PreguntaDesarrollo getPreguntaDesarrollo() {
-        PreguntaDesarrollo p4 = new PreguntaDesarrollo();
-        p4.setEnunciado("Desarrolla la etapa de Carlos II");
-        ArrayList<String> palabrasClave = new ArrayList<>();
+    public boolean comprobarRespuestaDesarrollo(PreguntaDesarrollo p) {
+        String respuesta = p.getRespuestaUsuario();
+        return gestorPartida.comprobarRespuestaActual(respuesta);
+    }
 
-        // Núcleo imprescindible del tema
-        palabrasClave.add("Carlos II");
-        palabrasClave.add("Último Austria");
-        palabrasClave.add("Crisis del siglo XVII");
-        palabrasClave.add("Validos");
-        palabrasClave.add("Debilidad del poder real");
+    public boolean comprobarRespuestaOpcionMultiple(PreguntaOpcionMultiple p) {
+        Integer seleccion = p.getRespuestaSeleccionada();
+        if (seleccion == null) return false;
 
-        // Gobierno
-        palabrasClave.add("Regencia de Mariana de Austria");
-        palabrasClave.add("Juan José de Austria");
+        String respuestaTexto = p.getOpciones().get(seleccion).getSentencia();
+        return gestorPartida.comprobarRespuestaActual(respuestaTexto);
+    }
 
-        // Economía y sociedad
-        palabrasClave.add("Crisis económica");
-        palabrasClave.add("Hacienda en quiebra");
-        palabrasClave.add("Descenso demográfico");
+    private void mostrarPantallaFinal(Stage stage) {
+        VBox pantallaFinal = new VBox(20);
+        pantallaFinal.setAlignment(Pos.CENTER);
+        pantallaFinal.setPadding(new Insets(40));
 
-        // Política exterior
-        palabrasClave.add("Pérdida de hegemonía");
-        palabrasClave.add("Conflictos con Francia");
+        int fallos = gestorPartida.getResultados().totalRespuestasFalladas();
 
-        // Sucesión (clave de cierre)
-        palabrasClave.add("Problema sucesorio");
-        palabrasClave.add("Falta de descendencia");
-        palabrasClave.add("Felipe de Anjou");
-        palabrasClave.add("Guerra de Sucesión Española");
-        p4.setRespuestasCorrectas(palabrasClave);
-        return p4;
+        Label titulo = new Label("¡TEST FINALIZADO!");
+        titulo.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
+
+        Label textoFallos = new Label("Has tenido " + fallos + " fallos.");
+        textoFallos.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+
+        Button btnVerFallos = new Button("Ver preguntas falladas");
+        btnVerFallos.setOnMouseClicked(e -> mostrarPreguntasFalladas(stage));
+
+        pantallaFinal.getChildren().addAll(titulo, textoFallos, btnVerFallos);
+        root.setCenter(pantallaFinal);
+    }
+    private void mostrarPreguntasFalladas(Stage stage) {
+        VBox vbox = new VBox(20);
+        vbox.setPadding(new Insets(20));
+
+        Label titulo = new Label("Preguntas falladas:");
+        titulo.setStyle("-fx-font-size: 30px; -fx-text-fill: white;");
+        vbox.getChildren().add(titulo);
+
+        gestorPartida.getResultados().getRespuestas()
+                .forEach((pregunta, listaRespuestas) -> {
+
+                    // Caja para cada pregunta
+                    VBox cajaPregunta = new VBox(10);
+                    cajaPregunta.setPadding(new Insets(15));
+                    cajaPregunta.setStyle("-fx-background-color: #1e293b; -fx-border-color: #7c3aed; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;");
+
+                    // Tipo de pregunta
+                    String tipo = (pregunta instanceof PreguntaDesarrollo) ? "Desarrollo" : "Opción múltiple";
+                    Label lblTipo = new Label("Tipo: " + tipo);
+                    lblTipo.setStyle("-fx-text-fill: #d8b4fe; -fx-font-weight: bold; -fx-font-size: 16px;");
+
+                    // Enunciado
+                    Label lblPregunta = new Label("❌ " + pregunta.getEnunciado());
+                    lblPregunta.setWrapText(true);
+                    lblPregunta.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;");
+
+                    cajaPregunta.getChildren().addAll(lblTipo, lblPregunta);
+
+                    // Respuestas del usuario
+                    int count = 1;
+                    for (String r : listaRespuestas) {
+                        Label lblResp = new Label("Intento " + count + ": " + r);
+                        lblResp.setWrapText(true);
+                        lblResp.setStyle("-fx-text-fill: #f87171; -fx-font-size: 16px;");
+                        cajaPregunta.getChildren().add(lblResp);
+                        count++;
+                    }
+
+                    // Respuesta correcta
+                    String respuestaCorrecta = "";
+                    if (pregunta instanceof PreguntaDesarrollo pDes) {
+                        respuestaCorrecta = String.join(", ", pDes.getRespuestasCorrectas());
+                    } else if (pregunta instanceof PreguntaOpcionMultiple pOpc) {
+                        respuestaCorrecta = pOpc.getRespuestaCorrecta();
+                    }
+
+                    Label lblCorrecta = new Label("Respuesta correcta: " + respuestaCorrecta);
+                    lblCorrecta.setWrapText(true);
+                    lblCorrecta.setStyle("-fx-text-fill: #22c55e; -fx-font-weight: bold; -fx-font-size: 16px;");
+                    cajaPregunta.getChildren().add(lblCorrecta);
+
+                    vbox.getChildren().add(cajaPregunta);
+                });
+
+        ScrollPane scroll = new ScrollPane(vbox);
+        scroll.setFitToWidth(true);
+        scroll.setStyle("-fx-background: #0f172a; -fx-border-color: transparent;");
+        root.setCenter(scroll);
     }
 }

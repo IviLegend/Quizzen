@@ -21,4 +21,8 @@ public class Opcion
     public boolean isEsCorrecta() {
         return esCorrecta;
     }
+
+    public void setEsCorrecta(boolean esCorrecta) {
+        this.esCorrecta = esCorrecta;
+    }
 }

@@ -61,10 +61,14 @@ public class PreguntaDesarrolloFX {
 
         cambiarTamanyoBoton(btonSiguiente,1.25,1.0);
 
-        //Para pasar a la siguiente pregunta
-        btonSiguiente.setOnMouseClicked( e -> app.siguientePregunta(stage));
-        btonAtras.setOnMouseClicked(e -> app.preguntaAnterior(stage));
+        btonSiguiente.setOnMouseClicked(e -> {
+            app.comprobarRespuestaDesarrollo(preguntaDesarrollo);
+            app.siguientePregunta(stage);
+        });
 
+        // Esto NO lo he tocado:
+        btonAtras.setOnMouseClicked(e -> app.preguntaAnterior(stage));
+        // 🔼🔼🔼 FIN DEL CAMBIO 🔼🔼🔼
         btonAtras.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
         btonSiguiente.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
@@ -87,18 +91,6 @@ public class PreguntaDesarrolloFX {
 
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
-
-
-        //VBox root = new VBox(cajaTitulo, contenedorOpciones, contenedorOpciones);
-//        Scene scene = new Scene(root, 800, 600);
-//        stage.setScene(scene);
-//
-//        stage.setFullScreen(true);
-//        stage.setFullScreenExitHint("");
-//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-//        stage.setMaximized(true);
-//
-//        stage.show();
 
         root.setStyle("-fx-background-color: #0f172a;"); //cambiar el fondo de la ventana a un grisaceo azulado
 
@@ -161,17 +153,6 @@ public class PreguntaDesarrolloFX {
         VBox.setMargin(subcaja,new Insets(0,60,200,60));
         subcaja.setAlignment(Pos.CENTER);
 
-//        subcaja.setStyle(
-//                "-fx-background-color: #ffe6cc;" +
-//                        "-fx-border-color: #cc6600;" +
-//                        "-fx-border-width: 4px;" +
-//                        "-fx-border-radius: 30px;" +
-//                        "-fx-background-radius: 30px;"
-//        );
-
-        // Permite que la subcaja crezca dentro del contenedor principal.
-        //VBox.setVgrow(subcaja, Priority.ALWAYS);
-
         // en vez de usar la clase Scanner, se usa la clase TextField ya que Scanner solo sirve para la consola.
         TextArea campoTexto = new TextArea();
 
@@ -206,17 +187,6 @@ public class PreguntaDesarrolloFX {
                 "-fx-border-width: 0;" + // <-- elimina la línea superior
                 "-fx-border-color: transparent;" // <-- asegura que no se dibuje nada
         );
-
-        //campoTexto.setStyle("-fx-font-size: 30px;"); // tamaño del texto
-
-        // aplicar curva al contenido interno
-
-//        Platform.runLater(() -> {
-//            campoTexto.lookup(".content").setStyle(
-//                    "-fx-background-radius: 30px;" +
-//                            "-fx-padding: 10;"
-//            );
-//        });
 
         Platform.runLater(() -> {
             campoTexto.lookup(".content").setStyle(
